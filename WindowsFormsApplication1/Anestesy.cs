@@ -19,21 +19,42 @@ namespace KlisheNamespace
         {
             if (ReferenceEquals(secondAnest, null)) { if (ReferenceEquals(firstAnest, null)) return true; else return false; }
 
-            if (firstAnest.applica==secondAnest.applica&& firstAnest.carpul==secondAnest.carpul&&) return false;
+            if (firstAnest.applica == secondAnest.applica && firstAnest.carpul == secondAnest.carpul && firstAnest.kindOfAnest == secondAnest.kindOfAnest)
+            {
+                if (firstAnest.applica)
+                {
+                    if (firstAnest.usingApplication.Name != secondAnest.usingApplication.Name) return false;
+                }
+                if (firstAnest.carpul)
+                {
+                    if (firstAnest.usingAnestetic.Name != secondAnest.usingAnestetic.Name) return false;
+                }
+                return true;
+            }
+                return false;
 
 
-            return true;
+           
 
 
         }
-        public static bool operator !=(Condition firstCond, Condition secondCond)
+        public static bool operator !=(Anestesy firstAnest, Anestesy secondAnest)
         {
-            if (ReferenceEquals(secondCond, null)) { if (ReferenceEquals(firstCond, null)) return false; else return true; }
+            if (ReferenceEquals(secondAnest, null)) { if (ReferenceEquals(firstAnest, null)) return false; else return true; }
 
-            if (firstCond.Name != secondCond.Name || firstCond.Depth != secondCond.Depth) return true;
-
-
-            return false;
+            if (firstAnest.applica == secondAnest.applica && firstAnest.carpul == secondAnest.carpul && firstAnest.kindOfAnest == secondAnest.kindOfAnest)
+            {
+                if (firstAnest.applica)
+                {
+                    if (firstAnest.usingApplication.Name != secondAnest.usingApplication.Name) return true;
+                }
+                if (firstAnest.carpul)
+                {
+                    if (firstAnest.usingAnestetic.Name != secondAnest.usingAnestetic.Name) return true;
+                }
+                return false;
+            }
+            return true;
 
 
         }

@@ -413,7 +413,7 @@ namespace KlisheNamespace
                     if (!haveOne)
                     {
                         GroupOfTooth newGroup = new GroupOfTooth();
-                        newGroup.MainDs = ds;
+                        newGroup.comparer = ds;
                         newGroup.ToothsInGroup.Add(tooth);
                         groups.Add(newGroup);
                     }
