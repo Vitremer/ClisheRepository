@@ -83,7 +83,11 @@ namespace KlisheNamespace
         /// <summary>
         /// Текст который нужно заменить в  полном собранном описании чтобы число поражения стало множественным - по порядку через символ '|' пишутся блоки которыми нужно заменить в тексте - в каждом блоке вначале пишется то что нужно заменить в единственном числе, затем через символ '_' - пишется то чем заменить - таким образом пройдясь по тексту описания по порядку и заменив в нужном порядке слова он превращается в текст множественного числа.
         /// </summary>
-        string _multiDescription=""; 
+        string _multiDescription="";
+
+        string _treatment = "";
+        string _multiTreatment = "";
+        bool _treatWithBlackClassification = false;
 
         /// <summary>
         /// Глубина данного поражения (частность)
@@ -157,7 +161,11 @@ namespace KlisheNamespace
             int layerToDescript,//10
             Color col,//11
             string multyDiscr,//12
-            Dictionary<DepthOfCondition, List<Affiction>> Affictions)//13
+            Dictionary<DepthOfCondition, List<Affiction>> Affictions,//13
+            string treatmentText,//14
+            string mulitTreatmentText,//15
+            bool black
+            )
         {
             this._availableDepths = availableDepths;
             this.Name = name;
@@ -172,6 +180,9 @@ namespace KlisheNamespace
             this._depthDiscriptions = descriptionForDepths;
             this._availableFaces = availablesFacesForCond;
             this._toothAffictions = Affictions;
+            this._treatment = treatmentText;
+            this._multiTreatment = mulitTreatmentText;
+            this._treatWithBlackClassification = black;
 
         }
         /// <summary>
@@ -196,7 +207,11 @@ namespace KlisheNamespace
          int layerToDescript,//7
          Color col,//8
          string multyDiscr,//9
-         Dictionary<DepthOfCondition, List<Affiction>> Affictions)
+         Dictionary<DepthOfCondition, List<Affiction>> Affictions,//10            
+            string treatmentText,//11
+            string mulitTreatmentText,//12
+                bool black
+                )
         {
             this.Name = name;
             this._availableFaces = availablesFacesForCond;
@@ -208,8 +223,11 @@ namespace KlisheNamespace
             this.colorOfCondition = col;
             this._multiDescription = multyDiscr;
             this._toothAffictions = Affictions;
+            this._treatment = treatmentText;
+            this._multiTreatment = mulitTreatmentText;
+            this._treatWithBlackClassification = black;
 
-        }//10
+        }
 
         /// <summary>
         /// Конструктор в случае если есть описание для снимка, но нет диагнозов для данного состояния.
@@ -237,7 +255,11 @@ namespace KlisheNamespace
             int layerToDescript,//9
             Color col,//10
             string multyDiscr,//11
-            Dictionary<DepthOfCondition, List<Affiction>> Affictions)
+            Dictionary<DepthOfCondition, List<Affiction>> Affictions,//12
+            string treatmentText,//13
+            string mulitTreatmentText,
+                bool black)//14
+
         {
             this.Name = name;
             this._availableFaces = availablesFacesForCond;
@@ -251,8 +273,10 @@ namespace KlisheNamespace
             this.colorOfCondition = col;
             this._multiDescription = multyDiscr;
             this._toothAffictions = Affictions;
-
-        }//12
+            this._treatment = treatmentText;
+            this._multiTreatment = mulitTreatmentText;
+            this._treatWithBlackClassification = black;
+        }
 
 
         /// <summary>
@@ -281,7 +305,11 @@ namespace KlisheNamespace
             Color col, //9
             string multyDiscr, //10
             Dictionary<DepthOfCondition,List<Affiction>> Affictions,//11
-            Dictionary<DepthOfCondition, string> depthTranslator)
+            Dictionary<DepthOfCondition, string> depthTranslator,//12
+            string treatmentText,//13
+            string mulitTreatmentText,//14
+                bool black
+            )
         {
             this._availableDepths = availableDepths;
             this.Name = name;
@@ -295,8 +323,10 @@ namespace KlisheNamespace
             this._availableFaces = availablesFacesForCond;
             this._toothAffictions = Affictions;
             this._depthTranslator = depthTranslator;
-
-        }//12 
+            this._treatment = treatmentText;
+            this._multiTreatment = mulitTreatmentText;
+            this._treatWithBlackClassification = black;
+        }
 
 
         public Condition(string name,
@@ -382,7 +412,30 @@ namespace KlisheNamespace
             }
           
         }
+        public string treatment
+        {
+            get
+            {
 
+                return _treatment;
+            }
+
+        }
+        public string multiTreatment
+        {
+            get
+            {
+
+                return _multiTreatment;
+            }
+
+        }
+        public bool treatWithBlack
+        {
+            get {
+                return _treatWithBlackClassification;
+            }
+        }
         public Diagnos Diag
         {
             get
@@ -496,7 +549,7 @@ namespace KlisheNamespace
 
 
 
-            Condition cond = new Condition(this.Name, this._availableFaces,this._availableDepths,this._diagnosisOfDepths, this.depthDiscriptions, this._description,this._rvgDescriptions,this._rvgDescription, this.layer,this.layerForDiscription, this.colorOfCondition, this._multiDescription,this._toothAffictions);
+            Condition cond = new Condition(this.Name, this._availableFaces,this._availableDepths,this._diagnosisOfDepths, this.depthDiscriptions, this._description,this._rvgDescriptions,this._rvgDescription, this.layer,this.layerForDiscription, this.colorOfCondition, this._multiDescription,this._toothAffictions,this._treatment,this._multiTreatment,this._treatWithBlackClassification);
             cond.Depth = this.Depth;
 
             return cond;

@@ -456,8 +456,11 @@ namespace KlisheNamespace
                       {Condition.DepthOfCondition.sred,new  List<Affiction> (){new Affiction("eod",8),new Affiction("termotest",1)} },
                       {Condition.DepthOfCondition.glub,new  List<Affiction> (){new Affiction("eod",12),new Affiction("termotest",1)}  },
                       {Condition.DepthOfCondition.giper,new  List<Affiction> (){new Affiction("eod",15),new Affiction("termotest",2),new Affiction("polost",1)}  }
-                  }
-                  ));
+                  },
+                  "препарирование кариозной полости ",
+                  "кариозной полости_кариозных полостей",true
+                  )
+                  );
 
               condiList.Add(new Condition("Пломба с нарушением",
                   new List<Face.faceSide>() { Face.faceSide.all },
@@ -474,7 +477,9 @@ namespace KlisheNamespace
                   "пломба_пломбы|пломбы_пломб",
                    new Dictionary<Condition.DepthOfCondition, List<Affiction>>() {
                   {Condition.DepthOfCondition.none,new  List<Affiction> (){new Affiction("pretreat",1)} }
-                  }
+                  },
+                  "снятие старой пломбы",
+                  "старой пломбы_старых пломб",false
                   ));
 
               condiList.Add(new Condition("Пломба без нарушения",
@@ -490,7 +495,8 @@ namespace KlisheNamespace
                                  "пломба_пломбы",
                                   new Dictionary<Condition.DepthOfCondition, List<Affiction>>() {
                   {Condition.DepthOfCondition.none,new  List<Affiction> (){new Affiction("pretreat",1)} }
-                  }
+                  },"","",false
+                 
                   ));
 
 
@@ -533,7 +539,7 @@ namespace KlisheNamespace
                       {Condition.DepthOfCondition.sred,new  List<Affiction> (){new Affiction("eod",8),new Affiction("termotest",1)} },
                       {Condition.DepthOfCondition.glub,new  List<Affiction> (){new Affiction("eod",12),new Affiction("termotest",1)}  },
                       {Condition.DepthOfCondition.giper,new  List<Affiction> (){new Affiction("eod",15),new Affiction("termotest",2),new Affiction("polost",1)}  }
-                   }
+                   },"препарирование поверхности клиновидного дефекта по V классу по Блэку","клиновидного дефекта_клиновидных дефектов",false
                   ));
 
               condiList.Add(new Condition("Несостоятельный контакт",
@@ -546,7 +552,7 @@ namespace KlisheNamespace
                   "несостоятельный контакт_несостоятельные контакты",
                     new Dictionary<Condition.DepthOfCondition, List<Affiction>>()
                     {{Condition.DepthOfCondition.none, new  List<Affiction>(){}}
-                    }
+                    },"","",false
                   ));
 
               return condiList;

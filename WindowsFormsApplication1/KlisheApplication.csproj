@@ -51,8 +51,10 @@
     <Compile Include="AdditionalStrings.cs" />
     <Compile Include="Affiction.cs" />
     <Compile Include="Anamnes.cs" />
+    <Compile Include="Anestesy.cs" />
     <Compile Include="Anesthetics.cs" />
     <Compile Include="ClisheTextManipulations.cs" />
+    <Compile Include="ConditionTreatment.cs" />
     <Compile Include="Copy of Form1.cs">
       <SubType>Form</SubType>
     </Compile>

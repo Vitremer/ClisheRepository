@@ -7,15 +7,16 @@ namespace KlisheNamespace
 {
     class Treatment
     {
-        public bool applica;
-        public bool anest;
+        public Anestesy anest = new Anestesy();
+        //public bool applica;
+        //public bool anest;
         public bool heal;
         public bool iso;
         public bool otsroch;
         public bool temporalPlomb;
-        public Anesthetics usingAnestetic = new Anesthetics();
+        //public Anesthetics usingAnestetic = new Anesthetics();
         public float mlOfAnest;
-        public Anesthetics usingApplication = new Anesthetics();
+        //public Anesthetics usingApplication = new Anesthetics();
         public Materials usingHealFill = new Materials();
         public Materials usingIsoFill = new Materials();
         public Materials usingPlomb = new Materials();
@@ -32,17 +33,25 @@ namespace KlisheNamespace
             }
             set { defaultIsoFill = value; }
         }
-        
+
+        //public static bool operator ==(Treatment firstTreat, Treatment secondTreat)
+        //{
+
+           
+
+        //}
+
         public void Copy(Treatment copyTreat)
         {
-            applica = copyTreat.applica;
+            anest = copyTreat.anest.Copy();
+            //applica = copyTreat.applica;
             anest = copyTreat.anest;
             heal = copyTreat.heal;
             iso = copyTreat.iso;
             otsroch = copyTreat.otsroch;
             temporalPlomb = copyTreat.temporalPlomb;
-            usingAnestetic = copyTreat.usingAnestetic;
-            usingApplication = copyTreat.usingApplication;
+            //usingAnestetic = copyTreat.usingAnestetic;
+            //usingApplication = copyTreat.usingApplication;
             mlOfAnest = copyTreat.mlOfAnest;
             usingHealFill = copyTreat.usingHealFill;
             usingIsoFill = copyTreat.usingIsoFill;

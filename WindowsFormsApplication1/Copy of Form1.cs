@@ -490,15 +490,13 @@ namespace KlisheNamespace
         void UpdateTreatment()
         {
 
-            applicationCheck.Checked = currentFormTooth.Treat.applica;
-            anestesyCheck.Checked = currentFormTooth.Treat.anest;
-            applicationBox.SelectedItem = currentFormTooth.Treat.usingApplication;
-            anestBox.SelectedItem = currentFormTooth.Treat.usingAnestetic;
+            applicationCheck.Checked = currentFormTooth.Treat.anest.applica;
+            anestesyCheck.Checked = currentFormTooth.Treat.anest.carpul;
+            applicationBox.SelectedItem = currentFormTooth.Treat.anest.usingApplication;
+            anestBox.SelectedItem = currentFormTooth.Treat.anest.usingAnestetic;
             volumeAnest.Text = currentFormTooth.Treat.mlOfAnest.ToString();
             healCheck.Checked = currentFormTooth.Treat.heal;
             isoCheck.Checked = currentFormTooth.Treat.iso;
-            applicationBox.SelectedItem = currentFormTooth.Treat.usingApplication;
-            anestBox.SelectedItem = currentFormTooth.Treat.usingAnestetic;
             ml.Text = currentFormTooth.Treat.mlOfAnest.ToString();
             healFillBox.SelectedItem = currentFormTooth.Treat.usingHealFill;
             isoFillBox.SelectedItem = currentFormTooth.Treat.usingIsoFill;
@@ -852,7 +850,7 @@ namespace KlisheNamespace
         private void application_CheckedChanged(object sender, EventArgs e)
         {
             applicationBox.Enabled = applicationCheck.Checked;
-            currentFormTooth.Treat.applica = applicationCheck.Checked;
+            currentFormTooth.Treat.anest.applica = applicationCheck.Checked;
         }
 
         private void anestesy_CheckedChanged(object sender, EventArgs e)
@@ -921,12 +919,12 @@ namespace KlisheNamespace
 
         private void applicationBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            currentFormTooth.Treat.usingApplication = (Anesthetics)applicationBox.SelectedItem;
+            currentFormTooth.Treat.anest.usingApplication = (Anesthetics)applicationBox.SelectedItem;
         }
 
         private void anestBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            currentFormTooth.Treat.usingAnestetic = (Anesthetics)applicationBox.SelectedItem;
+            currentFormTooth.Treat.anest.usingAnestetic = (Anesthetics)applicationBox.SelectedItem;
         }
 
         private void testColorList_SelectedIndexChanged(object sender, EventArgs e)
