@@ -26,6 +26,7 @@ namespace KlisheNamespace
             }
         }
         //public Tooth.diag MainDs;
+        public Object comparer = new Object();
 
         public Diagnos MainDs;
         public Condition MainCondition;

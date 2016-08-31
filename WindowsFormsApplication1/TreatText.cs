@@ -15,7 +15,7 @@ namespace KlisheNamespace
         public TreatText(Klishe klishe)
         {
             allTooths = klishe.GetAllTooths().ToList();
-            mainText = " \nЛечение: " + GetText(klishe.GetAnalogGroupsFromToothIdentity());
+            mainText = " \nЛечение: " + GetTextAnestesy(klishe.GetAnalogGroupsFromToothAnestesy())+GetTextConditionsTreatment(klishe.GetAnalogGroupsFromCondition())+GetTextPlombing(klishe.GetAnalogGroupsFromTreatment())+GetTextRecomendation(klishe.GetAnalogGroupsFromDiagnosis());
 
 
         }
@@ -27,7 +27,7 @@ namespace KlisheNamespace
             return mainText;
         }
 
-        string GetText(List<GroupOfTooth> groups)
+        string GetTextAnestesy(List<GroupOfTooth> groups)
         {
             string text = "";
 

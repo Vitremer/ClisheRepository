@@ -351,6 +351,44 @@ namespace KlisheNamespace
 
 
         }
+         public List<GroupOfTooth> GetAnalogGroupsFromAnestesy()
+        {
+
+            List<GroupOfTooth> groups = new List<GroupOfTooth>();
+            foreach (Tooth tooth in Tooths)
+            {
+                
+
+                    bool haveOne = false;
+                    foreach (GroupOfTooth group in groups)
+                    {
+
+                        if (group.comparer == tooth.Treat.anest)
+                        {
+                            group.ToothsInGroup.Add(tooth);
+                            haveOne = true;
+                            break;
+
+                        }
+
+                    }
+                    if (!haveOne)
+                    {
+                        GroupOfTooth newGroup = new GroupOfTooth();
+                        newGroup.comparer = tooth.Treat.anest;
+                        newGroup.ToothsInGroup.Add(tooth);
+                        groups.Add(newGroup);
+                    }
+                
+
+            }
+
+            return groups;
+
+
+
+
+        }
         public List<GroupOfTooth> GetAnalogGroupsFromTreatment()
         {
 
