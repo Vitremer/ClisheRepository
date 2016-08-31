@@ -1,0 +1,10 @@
+C:\Documents and Settings\cabinet1-88\Мои документы\Visual Studio 2008\Projects\AnotherOneProj\WindowsFormsApplication1\bin\Debug\WindowsFormsApplication1.exe
+C:\Documents and Settings\cabinet1-88\Мои документы\Visual Studio 2008\Projects\AnotherOneProj\WindowsFormsApplication1\bin\Debug\WindowsFormsApplication1.pdb
+C:\Documents and Settings\cabinet1-88\Мои документы\Visual Studio 2008\Projects\AnotherOneProj\WindowsFormsApplication1\obj\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\cabinet1-88\Мои документы\Visual Studio 2008\Projects\AnotherOneProj\WindowsFormsApplication1\obj\Debug\KlisheNamespace.mainForm.resources
+C:\Documents and Settings\cabinet1-88\Мои документы\Visual Studio 2008\Projects\AnotherOneProj\WindowsFormsApplication1\obj\Debug\KlisheNamespace.OptionsForm.resources
+C:\Documents and Settings\cabinet1-88\Мои документы\Visual Studio 2008\Projects\AnotherOneProj\WindowsFormsApplication1\obj\Debug\KlisheNamespace.Properties.Resources.resources
+C:\Documents and Settings\cabinet1-88\Мои документы\Visual Studio 2008\Projects\AnotherOneProj\WindowsFormsApplication1\obj\Debug\KlisheNamespace.WrongBox.resources
+C:\Documents and Settings\cabinet1-88\Мои документы\Visual Studio 2008\Projects\AnotherOneProj\WindowsFormsApplication1\obj\Debug\KlisheApplication.csproj.GenerateResource.Cache
+C:\Documents and Settings\cabinet1-88\Мои документы\Visual Studio 2008\Projects\AnotherOneProj\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.exe
+C:\Documents and Settings\cabinet1-88\Мои документы\Visual Studio 2008\Projects\AnotherOneProj\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.pdb
