@@ -288,9 +288,13 @@ namespace KlisheNamespace
 
                         if (group.MainCondition.Name == cond.Name)
                         {
-                            group.ToothsInGroup.Add(tooth);
-                            haveOne = true;
-                            break;
+                            if (!group.ToothsInGroup.Contains(tooth))
+                            {
+                                group.ToothsInGroup.Add(tooth);
+                            }
+                                haveOne = true;
+                                break;
+                            
 
                         }
 
@@ -413,7 +417,7 @@ namespace KlisheNamespace
                     if (!haveOne)
                     {
                         GroupOfTooth newGroup = new GroupOfTooth();
-                        newGroup.comparer = ds;
+                        newGroup. = ds;
                         newGroup.ToothsInGroup.Add(tooth);
                         groups.Add(newGroup);
                     }

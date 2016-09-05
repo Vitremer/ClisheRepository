@@ -13,7 +13,8 @@ namespace KlisheNamespace
       /// Перечисление возможных глубин у всех поражений поверхностей.
       /// </summary>
         public enum DepthOfCondition { none, pov, sred, glub, giper,pulpitis,periodontal };
-       
+
+        byte _blackClass;
        /// <summary>
         /// какие могут быть глубины у данного вида поражения 
        /// </summary>
@@ -395,6 +396,23 @@ namespace KlisheNamespace
                 }
                 return text;
             }
+        }
+
+        public byte BlackClass
+        {
+            get
+            {
+                return _blackClass;
+            }
+            set
+            {
+                if (value < 7 && value > 0)
+                {
+                    _blackClass = value;
+
+                }
+            }
+
         }
         public string Description
         {

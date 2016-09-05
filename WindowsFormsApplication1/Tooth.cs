@@ -15,7 +15,11 @@ namespace KlisheNamespace
          List<Diagnos> _diagnosis = new List<Diagnos>();
         List<connect> _connections = new List<connect>();
         List<Face> _facesOfTeeth = new List<Face>();
-        public Treatment Treat = new Treatment();
+        
+         
+         
+         
+         public Treatment Treat = new Treatment();
 
            public void RenewDiagnosis()
         {

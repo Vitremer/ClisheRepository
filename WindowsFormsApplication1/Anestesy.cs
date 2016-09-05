@@ -9,9 +9,9 @@ namespace KlisheNamespace
     {
        public  bool applica;
         public bool carpul;
-        public enum KindOfAnestesy {infiltration, conduction, intraseptal, intrapulpar, intraligamental };
-
-        public KindOfAnestesy kindOfAnest;
+        public enum KindOfAnestesy { infiltration, conduction, intraseptal, intrapulpar, intraligamental };
+        public float mlOfAnest;
+        public List<KindOfAnestesy> kindOfAnest;
         public Anesthetics usingAnestetic = new Anesthetics();
         public Anesthetics usingApplication = new Anesthetics();
 
@@ -66,6 +66,7 @@ namespace KlisheNamespace
             if (carpul) newAnest.kindOfAnest = this.kindOfAnest;
             newAnest.usingAnestetic = this.usingAnestetic;
             newAnest.usingApplication = this.usingApplication;
+            newAnest.mlOfAnest = this.mlOfAnest;
             return newAnest;
 
         }

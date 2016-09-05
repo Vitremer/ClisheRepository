@@ -316,7 +316,7 @@ namespace KlisheNamespace
 
         private void volumeAnest_MaskInputRejected(object sender, MaskInputRejectedEventArgs e)
         {
-            currentFormTooth.Treat.mlOfAnest = float.Parse(volumeAnest.Text);
+            currentFormTooth.Treat.anest.mlOfAnest = float.Parse(volumeAnest.Text);
         }
 
      
@@ -494,10 +494,10 @@ namespace KlisheNamespace
             anestesyCheck.Checked = currentFormTooth.Treat.anest.carpul;
             applicationBox.SelectedItem = currentFormTooth.Treat.anest.usingApplication;
             anestBox.SelectedItem = currentFormTooth.Treat.anest.usingAnestetic;
-            volumeAnest.Text = currentFormTooth.Treat.mlOfAnest.ToString();
+            volumeAnest.Text = currentFormTooth.Treat.anest.mlOfAnest.ToString();
             healCheck.Checked = currentFormTooth.Treat.heal;
             isoCheck.Checked = currentFormTooth.Treat.iso;
-            ml.Text = currentFormTooth.Treat.mlOfAnest.ToString();
+           
             healFillBox.SelectedItem = currentFormTooth.Treat.usingHealFill;
             isoFillBox.SelectedItem = currentFormTooth.Treat.usingIsoFill;
             plombBox.SelectedItem = currentFormTooth.Treat.usingPlomb;
@@ -856,7 +856,7 @@ namespace KlisheNamespace
         private void anestesy_CheckedChanged(object sender, EventArgs e)
         {
             anestBox.Enabled = anestesyCheck.Checked;
-            currentFormTooth.Treat.anest = anestesyCheck.Checked;
+            currentFormTooth.Treat.anest.carpul = anestesyCheck.Checked;
         }
 
         private void heal_CheckedChanged(object sender, EventArgs e)

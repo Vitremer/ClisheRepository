@@ -14,6 +14,7 @@ namespace KlisheNamespace
         List<Face> connections = new List<Face>();//список сообщений с другими поверхностями
         List<Condition> conditionsOfFace = new List<Condition>();
         Tooth _ownerTooth;
+        byte _blackClass;
         #endregion
 
         #region constructors
@@ -42,6 +43,17 @@ namespace KlisheNamespace
 
         #region properties
 
+        public byte BlackClass
+        {
+
+            get
+            {
+                       if(side== faceSide.medial,  
+                return _blackClass;
+            }
+           
+
+        }
         public bool IsEmpty()
         {
             if (connections.Count == 0 && conditionsOfFace.Count == 0) return true;

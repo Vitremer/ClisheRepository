@@ -60,6 +60,20 @@ namespace KlisheNamespace
         {
             string text = "";
 
+
+            List<text_block> text_blocks = new List<text_block>();
+            foreach (GroupOfTooth group in groups)
+            {
+                text_block tb = new text_block();
+                if (groups.Count > 1)
+                {
+                    foreach (Tooth tooth in group.ToothsInGroup)
+                    {
+                        tb.analogObjectsList.Add(tooth);
+                    }
+                }
+            }
+
             return text;
 
         }

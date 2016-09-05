@@ -15,7 +15,7 @@ namespace KlisheNamespace
         public bool otsroch;
         public bool temporalPlomb;
         //public Anesthetics usingAnestetic = new Anesthetics();
-        public float mlOfAnest;
+        //public float mlOfAnest;
         //public Anesthetics usingApplication = new Anesthetics();
         public Materials usingHealFill = new Materials();
         public Materials usingIsoFill = new Materials();
@@ -52,7 +52,7 @@ namespace KlisheNamespace
             temporalPlomb = copyTreat.temporalPlomb;
             //usingAnestetic = copyTreat.usingAnestetic;
             //usingApplication = copyTreat.usingApplication;
-            mlOfAnest = copyTreat.mlOfAnest;
+            //mlOfAnest = copyTreat.mlOfAnest;
             usingHealFill = copyTreat.usingHealFill;
             usingIsoFill = copyTreat.usingIsoFill;
             
