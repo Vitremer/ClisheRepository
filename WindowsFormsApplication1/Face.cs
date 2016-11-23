@@ -48,7 +48,9 @@ namespace KlisheNamespace
 
             get
             {
-                       if(side== faceSide.medial,  
+                if (side == faceSide.medial || side == faceSide.distal) _blackClass = 2;
+                else if (side == faceSide.okklusion) _blackClass = 1;
+                
                 return _blackClass;
             }
            

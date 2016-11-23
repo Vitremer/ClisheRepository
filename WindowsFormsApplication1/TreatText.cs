@@ -15,7 +15,7 @@ namespace KlisheNamespace
         public TreatText(Klishe klishe)
         {
             allTooths = klishe.GetAllTooths().ToList();
-            mainText = " \nЛечение: " + GetTextAnestesy(klishe.GetAnalogGroupsFromAnestesy())+GetTextConditionsTreatment(klishe.GetAnalogGroupsFromCondition())+GetTextPlombing(klishe.GetAnalogGroupsFromTreatment())+GetTextRecomendation(klishe.GetAnalogGroupsFromDiagnosis());
+            mainText = " \nЛечение: " + GetTextAnestesy(klishe.GetAnalogGroupsFromAnestesy()) + GetTextToothPrepare(klishe.GetAnalogGroupsFromPrepare()) + GetTextConditionsTreatment(klishe.GetAnalogGroupsFromCondition()) + GetTextPlombing(klishe.GetAnalogGroupsFromPlombing()) + GetTextRecomendation(klishe.GetAnalogGroupsFromDiagnosis());
 
 
         }
@@ -50,10 +50,29 @@ namespace KlisheNamespace
                     text = text.Remove(text.Length - 1);
                     text += " " + KlisheParams.GetBlock("treatment_anest") + " раствором " + ((Anestesy)group.comparer).usingAnestetic.Name + " - " + ((Anestesy)group.comparer).mlOfAnest + "мл, ";
                 }
-
+                
             }
 
             return text;
+
+        }
+
+        string GetTextToothPrepare(List<GroupOfTooth> groups)
+        {
+                    string text = "";
+                List<text_block> text_blocks = new List<text_block>();
+                foreach (GroupOfTooth group in groups)
+                {
+                    text_block tb = new text_block();
+                    if (group.ToothsInGroup.Count > 1)
+                    {
+                        tb.analogObjects = group.GetToothsText(true);
+                    }
+                  tb.textOfBlock = group.ToothsInGroup[0].Treat.prepare
+
+                }
+                    return text;
+
 
         }
         string GetTextConditionsTreatment(List<GroupOfTooth> groups)

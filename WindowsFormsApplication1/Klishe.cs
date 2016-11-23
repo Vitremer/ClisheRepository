@@ -393,7 +393,7 @@ namespace KlisheNamespace
 
 
         }
-        public List<GroupOfTooth> GetAnalogGroupsFromTreatment()
+        public List<GroupOfTooth> GetAnalogGroupsFromPlombing()
         {
 
             List<GroupOfTooth> groups = new List<GroupOfTooth>();
@@ -405,7 +405,7 @@ namespace KlisheNamespace
                     foreach (GroupOfTooth group in groups)
                     {
 
-                        if (group. == ds.identityString)
+                        if (group.comparer == tooth.Treat.plombing)
                         {
                             group.ToothsInGroup.Add(tooth);
                             haveOne = true;
@@ -417,7 +417,45 @@ namespace KlisheNamespace
                     if (!haveOne)
                     {
                         GroupOfTooth newGroup = new GroupOfTooth();
-                        newGroup. = ds;
+                        newGroup.comparer = tooth.Treat.plombing;
+                        newGroup.ToothsInGroup.Add(tooth);
+                        groups.Add(newGroup);
+                    }
+                
+
+            }
+
+            return groups;
+
+
+
+
+        }
+          public List<GroupOfTooth> GetAnalogGroupsFromPrepare()
+        {
+
+            List<GroupOfTooth> groups = new List<GroupOfTooth>();
+            foreach (Tooth tooth in Tooths)
+            {
+                
+
+                    bool haveOne = false;
+                    foreach (GroupOfTooth group in groups)
+                    {
+
+                        if (group.comparer == tooth.Treat.prepare)
+                        {
+                            group.ToothsInGroup.Add(tooth);
+                            haveOne = true;
+                            break;
+
+                        }
+
+                    }
+                    if (!haveOne)
+                    {
+                        GroupOfTooth newGroup = new GroupOfTooth();
+                        newGroup.comparer = tooth.Treat.prepare;
                         newGroup.ToothsInGroup.Add(tooth);
                         groups.Add(newGroup);
                     }

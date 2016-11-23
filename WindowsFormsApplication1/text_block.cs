@@ -16,6 +16,8 @@ namespace KlisheNamespace
         public bool multi = false;
          string[] _changerTextBlocks;
         string _changerText = "";
+
+
         public string[] changerTextBlocks
     {
         get{

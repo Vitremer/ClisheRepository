@@ -10,8 +10,7 @@ namespace KlisheNamespace
         #region fields
         byte numberOfTeeth;
         public enum connect { VM, VO, VD, MO, MN, ON, OD, DN, empty };
-        public enum diag {  pov_car, car , carCont, klinDef, skol, defect, contact, plomb, plombCont, plombDefCar, plombCar, plombDef, carDepZub, hronGranulemPdt, hronFibrPdt, hronGranulirPdt, hronGranulemPdtObostr, hronGranulirPdtObostr, hronFibrPdtObostr, hronFibrPulp, hronGipertrofPulp, hronGangrenosPulp, hronFibrPulpObostr, ostrSerosPulp, ostrGnoyPulp, osrtOchagPulp, ostrDiffPulp, travmatichPulp, depulpPoOrtopPok, depulpPoOrtodPor, depulpPoParodPok };
-         List<diag> _diagnosis1 = new List<diag>();
+      List<diag> _diagnosis1 = new List<diag>();
          List<Diagnos> _diagnosis = new List<Diagnos>();
         List<connect> _connections = new List<connect>();
         List<Face> _facesOfTeeth = new List<Face>();
@@ -884,7 +883,8 @@ namespace KlisheNamespace
 
         #region obsoleteCode
 
-
+        public enum diag { pov_car, car, carCont, klinDef, skol, defect, contact, plomb, plombCont, plombDefCar, plombCar, plombDef, carDepZub, hronGranulemPdt, hronFibrPdt, hronGranulirPdt, hronGranulemPdtObostr, hronGranulirPdtObostr, hronFibrPdtObostr, hronFibrPulp, hronGipertrofPulp, hronGangrenosPulp, hronFibrPulpObostr, ostrSerosPulp, ostrGnoyPulp, osrtOchagPulp, ostrDiffPulp, travmatichPulp, depulpPoOrtopPok, depulpPoOrtodPor, depulpPoParodPok };
+        
         ///// <summary>
         ///// Соединяет две поверхности(создает ссылки друг на друга в списках соединений у каждой из поверхностей)
         ///// </summary>

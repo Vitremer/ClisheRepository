@@ -8,6 +8,12 @@ namespace KlisheNamespace
     class Treatment
     {
         public Anestesy anest = new Anestesy();
+        public PrepareTooth prepare = new PrepareTooth();
+        public ConditionTreatment condiTreat = new ConditionTreatment();
+        public Plombing plombing = new Plombing();
+        public PostHealing postHeal = new PostHealing();
+        public Recomendation recomend = new Recomendation();
+
         //public bool applica;
         //public bool anest;
         public bool heal;

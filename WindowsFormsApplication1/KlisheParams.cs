@@ -201,8 +201,10 @@ namespace KlisheNamespace
                 blocksDictionary.Add("treatment_conduction_anest", "проводниковой ");
                 blocksDictionary.Add("treatment_inregion", " в области ");
 
-                blocksDictionary.Add("treatment_condition", " чистка зуба циркулярной щеточкой с пастой детартрин, ");
-                blocksDictionary.Add("treatment_condition_multi", "зуба_зубов");
+                blocksDictionary.Add("treatment_prepare_clean", " чистка зуба циркулярной щеточкой с пастой детартрин, ");
+                blocksDictionary.Add("treatment_prepare_clean_multi", "зуба_зубов");
+                blocksDictionary.Add("treatment_prepare_kof", " кофердам, ");
+                blocksDictionary.Add("treatment_prepare_optragate", " оптрагейт, ");
 
                 blocksDictionary.Add("treatment_prep", "  механическая обработка кариозной полости по ");
                 blocksDictionary.Add("treatment_prep_multi", "кариозной полости_кариозных полостей");

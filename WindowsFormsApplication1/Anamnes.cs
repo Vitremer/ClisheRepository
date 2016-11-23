@@ -148,7 +148,8 @@ namespace KlisheNamespace
                     block.allText += block.textOfBlock;
                     if (block.multi)
                     {
-                        if (!ClisheTextManipulations.MultiplyText(ref block.allText, block.changerText))
+
+                        if (!ClisheTextManipulations.MultiplyText(block.allText, block.changerText, out block.allText))
                         {
                             block.allText = block.allText.Replace("оит", "оят");
                         }

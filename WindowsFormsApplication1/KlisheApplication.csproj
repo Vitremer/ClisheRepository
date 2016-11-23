@@ -48,6 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdditionalMeans.cs" />
     <Compile Include="AdditionalStrings.cs" />
     <Compile Include="Affiction.cs" />
     <Compile Include="Anamnes.cs" />
@@ -81,6 +82,10 @@
     <Compile Include="Objective.cs" />
     <Compile Include="parodontal.cs" />
     <Compile Include="People.cs" />
+    <Compile Include="Plombing.cs" />
+    <Compile Include="PostHealing.cs" />
+    <Compile Include="PrepareTooth.cs" />
+    <Compile Include="Recomendation.cs" />
     <Compile Include="Rvg.cs" />
     <Compile Include="Stomatology.cs" />
     <Compile Include="Program.cs" />
