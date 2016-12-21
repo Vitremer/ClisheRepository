@@ -9,6 +9,7 @@ namespace KlisheNamespace
     public class AdditionalMean
     {
         #region fields
+
         string _name;//имя
         bool _isBool;//булевое дополнение
         public bool boolValue;//если булевое, тогда берется значение - добавлять или нет
@@ -109,6 +110,7 @@ namespace KlisheNamespace
             _isBool = true;
             _place = inPlace;
             _multiplicated = true;
+
             _text = inText;
             _multiText = inMultiText;
 

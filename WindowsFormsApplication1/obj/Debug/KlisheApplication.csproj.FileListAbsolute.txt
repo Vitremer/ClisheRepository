@@ -8,3 +8,5 @@ C:\Documents and Settings\cabinet1-88\Мои документы\Visual Studio 20
 C:\Documents and Settings\cabinet1-88\Мои документы\Visual Studio 2008\Projects\AnotherOneProj\WindowsFormsApplication1\obj\Debug\KlisheApplication.csproj.GenerateResource.Cache
 C:\Documents and Settings\cabinet1-88\Мои документы\Visual Studio 2008\Projects\AnotherOneProj\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.exe
 C:\Documents and Settings\cabinet1-88\Мои документы\Visual Studio 2008\Projects\AnotherOneProj\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.pdb
+C:\Users\Z\Desktop\AnotherOneProj\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.exe
+C:\Users\Z\Desktop\AnotherOneProj\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.pdb
