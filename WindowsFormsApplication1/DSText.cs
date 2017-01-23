@@ -31,7 +31,7 @@ namespace KlisheNamespace
              string text = "Диагноз: ";
            
            
-                 foreach (GroupOfTooth group in groups)//создание блоков текста сколько и как беспокоит
+                 foreach (GroupOfTooth group in groups)
             {
                 text +=group.GetToothsText(true)+" - "+ group.MainDs.Name+"\n";
           

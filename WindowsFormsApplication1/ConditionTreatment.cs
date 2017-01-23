@@ -7,5 +7,10 @@ namespace KlisheNamespace
 {
     class ConditionTreatment
     {
+
+        string _mainText;
+
+
+
     }
 }

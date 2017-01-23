@@ -430,11 +430,21 @@ namespace KlisheNamespace
             }
           
         }
+       public string GetTreatmentText(bool multi)
+       {
+
+           string resultText = "";
+                if (multi) ClisheTextManipulations.MultiplyText(_treatment, multiTreatment, out resultText);
+                else return _treatment;
+                return resultText;
+       }
+        
+    
+
         public string treatment
         {
             get
             {
-
                 return _treatment;
             }
 

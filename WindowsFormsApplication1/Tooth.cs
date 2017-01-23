@@ -14,9 +14,9 @@ namespace KlisheNamespace
          List<Diagnos> _diagnosis = new List<Diagnos>();
         List<connect> _connections = new List<connect>();
         List<Face> _facesOfTeeth = new List<Face>();
-        
-         
-         
+        Dictionary<string, List<connect>> _connectDictionary = new Dictionary<string, List<connect>>();//ключ - имя Состояния поверхности без глубины (Condition.Name), значения - список всех соединений этих состояний.
+        Dictionary<string, List<List<Face>>> _condNameConnectBlocksDictionary = new Dictionary<string, List<List<Face>>>();//ключ - имя Состояния поверхности без глубины (Condition.Name), значения - список  соединений этих состояний обьединенных в блоки
+        Dictionary<Condition, List<List<Face>>> _condConnectBlocksDictionary = new Dictionary<Condition, List<List<Face>>>();//ключ - само Состояние поверхности с глубиной (Condition), значения - список  соединений этих состояний обьединенных в блоки
          
          public Treatment Treat = new Treatment();
 
@@ -98,6 +98,237 @@ namespace KlisheNamespace
 
 
          }
+
+
+
+         byte _GetClassOfFace(Face fc)
+         {
+             byte blackClass = 0;
+
+             List<Face> connect = fc.GetConnections();
+             if (isFront)
+             {
+
+
+                 if (fc.faceName == Face.faceSide.distal || fc.faceName == Face.faceSide.medial)
+                 {
+                     blackClass = 3;
+
+                     if (connect.Count > 0)
+                         foreach (Face conFc in connect)
+                         {
+                             if (conFc.faceName == Face.faceSide.edge)
+                             {
+                                 blackClass = 4;
+                             }
+
+                         }
+                    
+                 }
+
+
+                 else if (fc.faceName == Face.faceSide.edge)
+                 {
+                     blackClass = 6;
+
+                     if (connect.Count > 0)
+                         foreach (Face conFc in connect)
+                         {
+                             if (conFc.faceName == Face.faceSide.distal || conFc.faceName == Face.faceSide.medial)
+                             {
+                                 blackClass = 4;
+                             }
+
+                         }
+
+
+                 }
+
+                 else if (fc.faceName == Face.faceSide.vestibular)
+                 {
+                     blackClass = 5;
+                     if (connect.Count > 0)
+                         foreach (Face conFc in connect)
+                         {
+                             if (conFc.faceName == Face.faceSide.distal || conFc.faceName == Face.faceSide.medial)
+                             {
+                                 blackClass = 3;
+                             }
+
+                         }
+
+                 }
+                 else
+                 {
+                     blackClass = 1;
+                     if (connect.Count > 0)
+                         foreach (Face conFc in connect)
+                         {
+                             if (conFc.faceName == Face.faceSide.distal || conFc.faceName == Face.faceSide.medial)
+                             {
+                                 blackClass = 3;
+                             }
+
+                         }
+                 }
+
+
+
+
+             }
+             else
+             {
+
+
+
+
+
+                 if (fc.faceName == Face.faceSide.distal || fc.faceName == Face.faceSide.medial)
+                 {
+                     blackClass = 2;
+
+                  }
+
+
+                 else if (fc.faceName == Face.faceSide.okklusion)
+                 {
+                     blackClass = 1;
+
+                     if (connect.Count > 0)
+                         foreach (Face conFc in connect)
+                         {
+                             if (conFc.faceName == Face.faceSide.distal || conFc.faceName == Face.faceSide.medial)
+                             {
+                                 blackClass = 2;
+                             }
+
+                         }
+
+
+                 }
+
+                 else if (fc.faceName == Face.faceSide.vestibular)
+                 {
+                     blackClass = 5;
+                     if (connect.Count > 0)
+                         foreach (Face conFc in connect)
+                         {
+                             if (conFc.faceName == Face.faceSide.distal || conFc.faceName == Face.faceSide.medial)
+                             {
+                                 blackClass = 2;
+                             }
+                             else if (conFc.faceName == Face.faceSide.okklusion)
+                             {
+                                 blackClass = 1;
+                             }
+
+                         }
+
+                 }
+                 else
+                 {
+                     blackClass = 1;
+                     if (connect.Count > 0)
+                         foreach (Face conFc in connect)
+                         {
+                             if (conFc.faceName == Face.faceSide.distal || conFc.faceName == Face.faceSide.medial)
+                             {
+                                 blackClass = 2;
+                             }
+
+                         }
+                 }
+
+
+
+
+             }
+
+            
+             return blackClass;
+         }
+
+
+         public string GetTextOfCondClass(Condition cond)
+         {
+             string resultText = KlisheParams.GetBlock("treatment_blackClass_of");
+
+             foreach (byte cl in GetClassesOfCondition(cond))
+             {
+
+                 resultText += KlisheParams.GetBlock("treatment_blackClass_" + cl)+',';
+             }
+             resultText = resultText.Remove(resultText.Length - 1) + ' ';
+             resultText += KlisheParams.GetBlock("treatment_blackClass_main");
+             return resultText;
+
+         }
+       
+         public List<byte> GetClassesOfCondition(Condition cond)
+         {
+             if (GetConditionsOfTooth().Find(c => c.Name == cond.Name) != null)//если такое состояние есть на зубе вообще, тогда мы начинаем чтото проверять...
+             {
+
+
+                 List<byte> blackClassList = new List<byte>();//список классов по блеку, которые занимает данное состояние на данном зубе
+
+                 List<Face> facesWithCond = new List<Face>();//список поверхностей которые занимает данное состояние
+
+                facesWithCond= GetConditionsDictOfTooth()[cond.Name];//получили все поверхности которые содержат данное состояние
+                 
+
+                 foreach (Face fcWithCond in facesWithCond)
+                 {
+                     byte blCl = _GetClassOfFace(fcWithCond);
+                     if (blCl != 0 && !blackClassList.Contains(blCl))
+
+                         blackClassList.Add(blCl);
+                 }
+
+
+
+
+
+
+                 return blackClassList;
+
+
+                 
+             }
+             else return null;
+
+         }
+
+         public Dictionary<String,List<Face>> GetConditionsDictOfTooth()
+         {
+             Dictionary<String, List<Face>> condiDict = new Dictionary<String, List<Face>>();
+
+             foreach(Condition cond in GetConditionsOfTooth())
+             {
+                 List<Face> facesContainsCond  = new List<Face>();
+                 foreach (Face face in this.GetAllFaces())
+                 {
+                     if(face.GetConditionsOfFace().Find(c => c.Name == cond.Name)!=null)
+                         facesContainsCond.Add(face);
+
+                 }
+                 //foreach (Face face in this.GetAllFaces())
+                 //{
+                 //    if(face.GetConnections().ToList().(facesContainsCond))
+                 //    {
+                 //        facesContainsCond.Add(face);
+                 //    }
+
+                 //}
+                 condiDict.Add(cond.Name,facesContainsCond);
+
+             }
+
+
+           
+             return condiDict;
+         }
+
 
          public List<Condition> GetConditionsOfTooth()
          {
@@ -281,6 +512,14 @@ namespace KlisheNamespace
                 this.AddFace(faceCopyed.Copy(), false);
             }
 
+            foreach (KeyValuePair<string, List<connect>> KvP in copyTooth._connectDictionary)
+            {
+                List<connect> copyCon = new List<connect>();
+                copyCon.AddRange(KvP.Value);
+                _connectDictionary.Add(KvP.Key, copyCon);
+            }
+       
+
             _diagnosis = copyTooth._diagnosis;
             podv = copyTooth.podv;
             pretreat = copyTooth.pretreat;
@@ -304,6 +543,16 @@ namespace KlisheNamespace
             {
                 this.AddFace(faceCopyed.Copy(),false);
             }
+
+
+            foreach (KeyValuePair<string, List<connect>> KvP in copyTooth._connectDictionary)
+            {
+                List<connect> copyCon = new List<connect>();
+                copyCon.AddRange(KvP.Value);
+                _connectDictionary.Add(KvP.Key, copyCon);
+            }
+     
+
 
             _diagnosis = copyTooth._diagnosis;
             podv = copyTooth.podv;
@@ -643,7 +892,79 @@ namespace KlisheNamespace
             }
             return faces;
         }
+        /// <summary>
+        /// Метод добавления поверхности в список
+        /// </summary>
+        /// <param name="face">Поверхность которую добавить</param>
+        /// <param name="changeOld">Заменять ли старую поверхность на новую при совпадении имен</param>
+        /// <returns>В случае отсутсвия совпадений и добавления поверхности как новой в список - вовзращает true, в случае замены поверхности - false.</returns>
+        public bool AddFace(Face face, bool changeOld)
+        {
+            Face tempFace = face.Copy();
 
+            if (kvadrantNumb == 1 || kvadrantNumb == 2)
+            {
+                if (face.faceName == Face.faceSide.lingual)
+                {
+                    tempFace.faceName = Face.faceSide.palatinal;
+                }
+            }
+            else if (kvadrantNumb == 3 || kvadrantNumb == 4)
+            {
+                if (face.faceName == Face.faceSide.palatinal)
+                {
+                    tempFace.faceName = Face.faceSide.lingual;
+                }
+            }
+
+            if (isFront)
+            {
+                if (face.faceName == Face.faceSide.okklusion)
+                {
+                    tempFace.faceName = Face.faceSide.edge;
+                }
+            }
+            else
+            {
+                if (face.faceName == Face.faceSide.edge)
+                {
+                    tempFace.faceName = Face.faceSide.okklusion;
+                }
+            }
+
+            int indexer = 0;
+            foreach (Face faceInList in _facesOfTeeth)
+            {
+                if (faceInList.faceName == face.faceName || faceInList.faceName == tempFace.faceName)
+                {
+                    if (changeOld)
+                    {
+                        _facesOfTeeth[indexer] = tempFace;
+                        ApplyAllAffictions();
+                        return false;
+                    }
+                    else
+                    {
+                        _facesOfTeeth[indexer].AddConditionsFromFace(tempFace, true);
+                        ApplyAllAffictions();
+                        return false;
+                    }
+
+                }
+                else
+                {
+                    indexer++;
+                }
+
+            }
+
+            _facesOfTeeth.Add(tempFace);
+            ApplyAllAffictions();
+            return true;
+
+        }
+
+        #region Connections Methods
         /// <summary>
         /// Соединяет и разъединяет поверхности по типу соединения.
         /// </summary>
@@ -704,6 +1025,7 @@ namespace KlisheNamespace
 
                 case 'D': return Face.faceSide.distal;
 
+                case 'C': return Face.faceSide.cervical;
                 case 'O':
                     if (this.isFront) return Face.faceSide.edge;//если зуб с которым сейчас работаем передний то окклюзионная поверхность меняется на режущий край
                     else return Face.faceSide.okklusion;
@@ -715,6 +1037,61 @@ namespace KlisheNamespace
 
             }
         }
+
+
+        char _GetFaceCharFromName(Face.faceSide fc)
+        {
+
+            switch (fc)//проверяем имя чекбокса (чекбокс отлавливается еще на событии открытия меню) на котором кликнули и по имени выбираем какую поверхность будем менять(диагноз выставлять)
+            {
+                case Face.faceSide.vestibular: return 'V';//у каждой поверхности (отдельный класс поверхностей Faces), есть поле называемое Имя - оно является типом данных enum faceSide
+
+                case Face.faceSide.medial: return 'M';
+
+                case Face.faceSide.distal: return'D' ;
+
+                case Face.faceSide.edge: return 'O';
+
+                case Face.faceSide.okklusion: return 'O';
+                case Face.faceSide.cervical: return 'C';
+
+
+                case Face.faceSide.palatinal: return 'N';
+
+                case Face.faceSide.lingual: return 'N';
+
+                default: return 'O';
+
+            }
+
+        }
+        connect _GetConnectionFromFaces(Face firstFace, Face secondface)
+        {
+            string nameOfCon = ""+_GetFaceCharFromName(firstFace.faceName) + _GetFaceCharFromName(secondface.faceName);
+            connect con = (Tooth.connect)Enum.Parse(typeof(Tooth.connect), nameOfCon  );
+            return con;
+        }
+        List<connect> _GetAvealableConnectionsForFace(Face fc)
+        {
+            connect[] conArray = (connect[])Enum.GetValues(typeof(connect));
+
+            List<connect> conList = conArray.Where(c => _GetFacesFromConnection(c).ToList().Contains(fc)).ToList();
+
+            return conList;
+        }
+         
+         Face[] _GetFacesFromConnection(connect con)
+        {
+            Face[] faces = new Face[2];
+
+            faces[0] =GetFace( _GetFaceNameFromChar(con.ToString()[0]),false);
+
+            faces[1] =GetFace( _GetFaceNameFromChar(con.ToString()[1]),false);
+
+            return faces;
+
+        }
+
          /// <summary>
          /// Внутренний метод соединяющий поверхности.
          /// </summary>
@@ -722,9 +1099,17 @@ namespace KlisheNamespace
          /// <param name="secondFace">Вторая поверхность</param>
          /// <returns>True - если соединение прошло успешно.</returns>
         bool _connectFaces(Face firstFace, Face secondFace)
-        {           
+        {
+            connect con = _GetConnectionFromFaces(firstFace, secondFace);
+
+            foreach (Condition cond in GetConditionsOfConnection(con,false))
+            {
+                _connectCondition(cond.Name, con);
+            }
+
             return firstFace.AddConnection(secondFace) | secondFace.AddConnection(firstFace);
         }
+
         /// <summary>
         /// Внутренний метод рассоединяющий поверхности.
         /// </summary>
@@ -733,83 +1118,393 @@ namespace KlisheNamespace
         /// <returns>True - если рассоединение прошло успешно.</returns>
         bool _disconnectFaces(Face firstFace, Face secondFace)
         {
+
+            connect con = _GetConnectionFromFaces(firstFace, secondFace);
+
+            foreach (Condition cond in GetConditionsOfConnection(con,false))
+            {
+                _disconnectCondition(cond.Name, con);
+            }
             return firstFace.RemoveConnection(secondFace) | secondFace.RemoveConnection(firstFace);
         }
-
-
-
-       
-        /// <summary>
-        /// Метод добавления поверхности в список
-        /// </summary>
-        /// <param name="face">Поверхность которую добавить</param>
-        /// <param name="changeOld">Заменять ли старую поверхность на новую при совпадении имен</param>
-        /// <returns>В случае отсутсвия совпадений и добавления поверхности как новой в список - вовзращает true, в случае замены поверхности - false.</returns>
-        public bool AddFace(Face face, bool changeOld)
+         
+        bool _connectCondition(string cond, connect con)
         {
-            Face tempFace = face.Copy();
-
-            if (kvadrantNumb == 1 || kvadrantNumb == 2)
+            if (GetConditionsOfConnection(con,false).Find(c => c.Name == cond) != null)
             {
-                if (face.faceName == Face.faceSide.lingual)
+                if (_connectDictionary.ContainsKey(cond))
                 {
-                    tempFace.faceName = Face.faceSide.palatinal;
+                    if (_connectDictionary[cond] != null)
+                    {
+                        if (!_connectDictionary[cond].Contains(con))
+                        {
+                            _connectDictionary[cond].Add(con);
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    }
+                    else
+                    {
+                        _connectDictionary.Add(cond, new List<connect>() { con });
+                        return true;
+                    }
+                }
+                else
+                {
+                    _connectDictionary.Add(cond, new List<connect>() { con });
+                    return true;
                 }
             }
-            else if(kvadrantNumb == 3 || kvadrantNumb == 4)
+            return false;
+
+        }
+
+        bool _disconnectCondition(string cond, connect con)
+        {
+            if (GetConditionsOfConnection(con,false).Find(c => c.Name == cond) != null)
             {
-                 if (face.faceName == Face.faceSide.palatinal)
+                if (_connectDictionary.ContainsKey(cond))
                 {
-                    tempFace.faceName = Face.faceSide.lingual;
+                    if (_connectDictionary[cond] != null)
+                    {
+                        if (_connectDictionary[cond].Contains(con))
+                        {
+                            _connectDictionary[cond].Remove(con);
+                            return true;
+                        }
+                        else
+                        {
+                            return true;
+                        }
+                    }
+                    else
+                    {
+                        _connectDictionary.Add(cond, new List<connect>());
+                        return true;
+                    }
+                }
+                else
+                {
+                    _connectDictionary.Add(cond, new List<connect>());
+                    return true;
                 }
             }
+            return false;
 
-            if (isFront)
+        }
+
+        public bool SwitchConectionsOfCondition(string cond, connect con)
+        {
+            if (_connectDictionary.ContainsKey(cond))
             {
-                if (face.faceName == Face.faceSide.okklusion)
+                if (_connectDictionary[cond].Contains(con))
                 {
-                    tempFace.faceName = Face.faceSide.edge;
+                    _connectDictionary[cond].Remove(con);
+
+                    RefreshConnections();
+                    return false;
+                }
+                else
+                {
+                    _connectDictionary[cond].Add(con);
+                    if (!Connections.Contains(con)) SwitchConnection(con);
+                    RefreshConnections();
+                    return true;
                 }
             }
             else
             {
-                if (face.faceName == Face.faceSide.edge)
+                if (!Connections.Contains(con))
                 {
-                    tempFace.faceName = Face.faceSide.okklusion;
-                }
-            }
-
-            int indexer = 0;
-            foreach (Face faceInList in _facesOfTeeth)
-            {
-                if (faceInList.faceName == face.faceName || faceInList.faceName==tempFace.faceName)
-                {
-                    if (changeOld)
-                    {
-                        _facesOfTeeth[indexer] = tempFace;
-                        ApplyAllAffictions();
-                        return false;
-                    }
-                    else
-                    {
-                        _facesOfTeeth[indexer].AddConditionsFromFace(tempFace, true);
-                        ApplyAllAffictions();
-                        return false;
-                    }
-
+                    _connectDictionary.Add(cond, new List<connect>() { con });
+                    SwitchConnection(con);
+                    RefreshConnections();
+                    return true;
                 }
                 else
                 {
-                    indexer++;
+                    _connectDictionary.Add(cond, new List<connect>() { con });
+                    RefreshConnections();
+                    return true;
+
                 }
 
             }
 
-            _facesOfTeeth.Add(tempFace);
-            ApplyAllAffictions();
-            return true;
 
         }
+
+        List<Face> _GetFacesContainsCondition(Condition cond)
+        {
+            return GetAllFaces().Where(f => f.GetConditionsOfFace().Contains(cond)).ToList();
+        }
+        List<Face> _GetFacesContainsCondition(string cond)
+        {
+            return GetAllFaces().Where(f => f.GetConditionsOfFace().Where(c=>c.Name ==cond).ToList().Count>0).ToList();
+        }
+        List<Condition> _GetConditionsConnectedToFace(Face fc)
+        {
+
+            List<Condition> condiList = new List<Condition>();
+
+            foreach(KeyValuePair<Condition, List<List<Face>>> KvP in condConnectBlocksDictionary)
+            {
+                if(KvP.Value.Find(f=>f.ToList().Contains(fc))!=null)
+                {
+                    if(!condiList.Contains(KvP.Key))
+                    {
+                        condiList.Add(KvP.Key);
+                    }
+                }
+
+            }
+
+            return condiList;
+               //condConnectBlocksDictionary.Keys.Where(k => condConnectBlocksDictionary[k].Contains(
+               //Contains(fb => (fb.ToList()).Contains(fc)));
+        }
+        public List<Condition> GetConditionsOfConnection(connect con,bool chainConnection)
+        {
+            Face firstFaceOfConnect = _facesOfTeeth.Find(f => f.faceName == _GetFaceNameFromChar(con.ToString()[0]));
+            Face secondFaceOfConnect = _facesOfTeeth.Find(f => f.faceName == _GetFaceNameFromChar(con.ToString()[1]));
+
+            List<Condition> condiList = new List<Condition>();
+            if (firstFaceOfConnect != null)
+            {
+                foreach (Condition cond in firstFaceOfConnect.GetConditionsOfFace())
+                {
+                    if (!condiList.Contains(cond))
+                        condiList.Add(cond);
+                }
+
+                if(chainConnection)
+                    foreach (Condition cond in _GetConditionsConnectedToFace(firstFaceOfConnect))
+                {
+                    if (!condiList.Contains(cond))
+                        condiList.Add(cond);
+                }
+            }
+
+            if (secondFaceOfConnect != null)
+            {
+                foreach (Condition cond in secondFaceOfConnect.GetConditionsOfFace())
+                {
+                    if (!condiList.Contains(cond))
+                        condiList.Add(cond);
+                }
+                if (chainConnection)
+                foreach (Condition cond in _GetConditionsConnectedToFace(secondFaceOfConnect))
+                {
+                    if (!condiList.Contains(cond))
+                        condiList.Add(cond);
+                }
+
+            }
+            return condiList;
+
+        }
+
+
+       public  List<connect> GetConnectionsOfCondition(string cond)
+        {
+
+            List<connect> ddl = new List<connect>();
+            _connectDictionary.TryGetValue(cond, out ddl);
+            return ddl;
+        }
+       void RefreshConnections()
+       {
+           _MakeDictionaryOfConditionsNameFaceBlocks();
+
+           for (int i = 0; i < (int)connect.empty; i++)
+           {
+               if (_connectDictionary.Values.Where(conList => conList.Contains((connect)i)).ToList().Count>0)
+               {
+                   if (!Connections.Contains((connect)i)) SwitchConnection((connect)i);
+
+               }
+               else
+               {
+                   if (Connections.Contains((connect)i)) SwitchConnection((connect)i);
+
+               }
+           }
+       }
+
+     
+        List<List<Face>> _GetBlocksOfConnectedFacesOfCondition(string cond)
+       {
+
+
+
+
+           List<List<Face>> facesBlocks = new List<List<Face>>();
+
+
+
+
+           List<connect> allConnections = GetConnectionsOfCondition(cond);
+           if (allConnections != null)
+
+           foreach (connect con in allConnections)
+           {
+               Face[] twoFaces = _GetFacesFromConnection(con);
+               bool first = false;
+               bool second = false;
+               List<Face> faces = facesBlocks.Find(fb =>
+                   (first = fb.Contains(twoFaces[0])) ^ (second = fb.Contains(twoFaces[1]))
+                   );
+               if (faces != null)
+               {
+                  
+                   faces.Add(twoFaces[first ? 1 : 0]);
+                    
+               }
+               else if(!first&!second)
+               {
+                   faces = new List<Face>();
+                   faces.AddRange(twoFaces);
+                  
+                   facesBlocks.Add(faces);
+               }
+
+
+           }
+
+           List<Face> facesContainsCond = _GetFacesContainsCondition(cond);
+
+           foreach (Face fc in facesContainsCond)
+           {
+
+               if(facesBlocks.Find(fb=>fb.Contains(fc))==null)
+               {
+                   List<Face> faces = new List<Face>();
+                   faces.Add(fc);
+                   facesBlocks.Add(faces);
+               }
+           }
+
+
+
+
+
+             List<List<Face>> fbToRemove = new List<List<Face>>();
+           foreach (List<Face> fb in facesBlocks)
+           {
+              
+               if (
+                   fb.Where(f => f.GetConditionFromName(cond)!=null).ToList().Count==0
+                   )
+               {
+                   fbToRemove.Add(fb);
+               }
+
+           }
+           foreach (List<Face> fb in fbToRemove)
+           {
+
+               facesBlocks.Remove(fb);
+
+              
+               foreach (Face fc in fb)
+               {
+                   foreach (connect cn in
+                       (List<connect>)_connectDictionary[cond].Where(c => (_GetFacesFromConnection(c).ToList().Contains(fc))).ToList()
+                       )
+                   {
+                    if(_connectDictionary[cond].Contains(cn))
+                       _connectDictionary[cond].Remove(cn);
+
+                   }
+               }
+              
+           }
+        
+
+          
+           return facesBlocks;
+       }
+
+        public Dictionary<Condition,  List<List<Face>>> condConnectBlocksDictionary
+        {
+            get
+            {
+               
+                    _MakeDictionaryOfConditionsFaceBlocks();
+                
+                return _condConnectBlocksDictionary;
+            }
+        }
+
+       public Dictionary<string,  List<List<Face>>> condNameConnectBlocksDictionary
+       {
+           get
+           {
+              
+                   _MakeDictionaryOfConditionsNameFaceBlocks();
+               
+               return _condNameConnectBlocksDictionary;
+           }
+       }
+
+       
+       void _MakeDictionaryOfConditionsNameFaceBlocks()
+       {
+
+           _condNameConnectBlocksDictionary = new Dictionary<string, List<List<Face>>>();
+           foreach (Condition cond in GetConditionsOfTooth())
+           {
+               _condNameConnectBlocksDictionary.Add(cond.Name, _GetBlocksOfConnectedFacesOfCondition(cond.Name));
+           }
+
+
+       }
+
+       void _MakeDictionaryOfConditionsFaceBlocks()
+       {
+           _condConnectBlocksDictionary = new Dictionary<Condition, List<List<Face>>>();
+           foreach (KeyValuePair<string,  List<List<Face>>> KvP in condNameConnectBlocksDictionary)
+           {
+               
+               foreach (List<Face> fcBlock in KvP.Value)
+               {
+                   List<Face> fcsContainsCondition = (fcBlock.Where(face => face.GetConditionFromName(KvP.Key) != null)).ToList();
+                   Condition.DepthOfCondition maximumDepth = fcsContainsCondition.Max(f => f.GetConditionFromName(KvP.Key).Depth);//находим максимальную глубину поражения среди всех поверхностей в блоке
+                   Condition cond = fcsContainsCondition.First(f => f.GetConditionFromName(KvP.Key).Depth == maximumDepth).GetConditionFromName(KvP.Key);//среди всех поверхностей блока находим такую на которой есть поражение с максимальной найденной глубиной, и это состояние присуждаем к искомому самому глубокому состоянию среди всех в данном блоке.
+                Condition keyCond = _condConnectBlocksDictionary.Keys.ToList().Find(key=>key==cond);
+                   if (keyCond==null)
+                       _condConnectBlocksDictionary.Add(cond, new  List<List<Face>> { fcBlock });
+                   else
+                   {
+                       _condConnectBlocksDictionary[keyCond].Add(fcBlock);
+                   }
+
+               }
+
+           }
+
+
+       }
+       public List<Face> GetConnectedFacesOfCondition(string cond)
+       {
+           List<Face> faces = new List<Face>();
+           
+           foreach (connect con in GetConnectionsOfCondition(cond))
+           {
+               foreach (Face fc in _GetFacesFromConnection(con))
+               {
+                   if (!faces.Contains(fc)) faces.Add(fc);
+               }
+           }
+           return faces;
+       }
+      
+       
+        #endregion
+
 
         #endregion
 
@@ -882,6 +1577,49 @@ namespace KlisheNamespace
         #endregion
 
         #region obsoleteCode
+
+        List<Face> _GetChainOfConnectedFacesFromConnections(List<connect> connectionsToCheck)
+        {
+            List<Face> faces = new List<Face>();
+            List<connect> excludeConnections = new List<connect>();
+            if (connectionsToCheck != null)
+                foreach (connect con in connectionsToCheck)
+                {
+                    if (faces.Count == 0)
+                    {
+                        faces.AddRange(_GetFacesFromConnection(con));//если блок соединенных поверхностей еще пустой, тогда смело добавляем в него обе поверхности от соединения
+                    }
+                    else
+                    {
+                        //если блок еще не пустой, тогда проверяем присоединены ли данные поверхности к предыдущим
+                        bool connected = false;//флажок присоединены ли
+                        Face[] fcArray = _GetFacesFromConnection(con); //берем две поверхности данного соединения, которое проверяем
+
+                        foreach (Face fc in fcArray)//перебираем две поверхности 
+                        {
+                            if (faces.Contains(fc)) connected = true;//если какая-то из них содержится в списке, значит и это соединение присоединено к остальным
+                        }
+
+
+                        if (connected)//если соединение присоединено, тогда мы проверяем...
+                        {
+                            foreach (Face fc in fcArray)
+                            {
+                                if (!faces.Contains(fc)) faces.Add(fc);//если среди этих двух поверхностей от соединения, какая либо отсутствует в списке,то мы ее добавляем. Если же они уже ранее были добавлены в список, тогда дублировать их ни к чему.
+                            }
+                        }
+                        else//если же эти поверхности не соединены с предыдущими, мы скидываем их в список соединений, которые будем проверять после полного составления блока всех соединенных в данную цепочку поверхностей, чтобы не происходило прерывания списка данной цепочки.
+                        {
+                            excludeConnections.Add(con);
+
+                        }
+
+                    }
+
+                }
+            connectionsToCheck = excludeConnections;
+            return faces;
+        }
 
         public enum diag { pov_car, car, carCont, klinDef, skol, defect, contact, plomb, plombCont, plombDefCar, plombCar, plombDef, carDepZub, hronGranulemPdt, hronFibrPdt, hronGranulirPdt, hronGranulemPdtObostr, hronGranulirPdtObostr, hronFibrPdtObostr, hronFibrPulp, hronGipertrofPulp, hronGangrenosPulp, hronFibrPulpObostr, ostrSerosPulp, ostrGnoyPulp, osrtOchagPulp, ostrDiffPulp, travmatichPulp, depulpPoOrtopPok, depulpPoOrtodPor, depulpPoParodPok };
         

@@ -87,117 +87,236 @@ namespace KlisheNamespace
         {
             string text ="";
             List<text_block> text_blocks = new List<text_block>();
-            bool haveOne = false;
+          
 
 
 
+            foreach(KeyValuePair<Condition,List<List<Face>>> KvP in tooth.condConnectBlocksDictionary)
+            {                     
+                
+                text_block tb = new text_block();                         
+                tb.layer = KvP.Key.layerForDiscription;
+                tb.comparer = KvP.Key;
+                tb.textOfBlock = KvP.Key.Description;
+                if(KvP.Value.Count>1) tb.multi = true;
+                tb.changerText = KvP.Key.multiDiscription;
+               
+                
 
-
-
-
-            foreach (Face face in tooth.GetAllFaces())
-            {
-
-                foreach (Condition cond in face.GetConditionsOfFace())
+                bool firstTimeInListOfBlocks = true;
+                foreach (List<Face> faceBlock in KvP.Value)
                 {
-                    foreach(text_block tb in  text_blocks){
-                        if (((Condition)tb.comparer).Name == cond.Name)
-                        {
-                            haveOne = true;
-                            bool alreadyConnected = false;
-                            foreach (Face fc in tb.analogObjectsList)//проверяем нет ли среди поверхностей с таким же диагнозом, таких с которым эта поверхность уже соединена
-                            {
-                               
-                                    if (face.GetConnections().Contains(fc))
-                                    {
-                                        
-                                    
-                                        if (((Condition)tb.comparer).Depth<cond.Depth)
-                                        {
-                                   
-                                            tb.comparer = cond;
-                                        }
-                                        alreadyConnected = true;
-                                        break;
-                                    }
 
-                                
-                            }
-                            if (!alreadyConnected)//если присоединенных поверхностей нет тогда она будет описываться отдельно.
-                            {
-                                tb.analogObjectsList.Add(face);
-                                tb.multi = true;
-                            }
-                            break;
-                        }
-                    
-
-                    }
-
-                    if (!haveOne)
+                    if (!firstTimeInListOfBlocks) tb.secondTextOfBlock += " и ";
+                    if (faceBlock.Count == 1 && faceBlock[0].faceName == Face.faceSide.edge)//если это  режущий край тогда
                     {
-                        text_block tb = new text_block();
-                        tb.analogObjectsList.Add(face);
-                        tb.layer = cond.layerForDiscription;
-                        tb.comparer = cond;
-                        tb.textOfBlock =  cond.Description;
-                        tb.changerText = cond.multiDiscription;
-                        text_blocks.Add(tb);
+                        tb.secondTextOfBlock += "по ";
+                    }
+                    else
+                    {
+                        if (firstTimeInListOfBlocks) tb.secondTextOfBlock += "на "; 
+                    }
+                                                     
+                    bool firstTimeInBlock = true;
+                    bool edge = false;
+                    bool onlyEdge = false;
+
+
+                    foreach (Face fc in faceBlock)
+                    {
+                        if (faceBlock.Count == 1 && fc.faceName == Face.faceSide.edge)//если это  режущий край тогда
+                        {                        
+                                                     
+
+
+                                tb.secondTextOfBlock += KlisheParams.GetBlock("face_name_" + fc.faceName.ToString() + "_onthe") + " ";
+                                onlyEdge = true;
+                            
+                            
+                        }
+                        else
+                        {
+
+                            if (fc.faceName != Face.faceSide.edge)//если это не режущий край тогда
+                            {
+                                if (!firstTimeInBlock) 
+                                //{ tb.secondTextOfBlock += "на "; }
+                                //else 
+                                { tb.secondTextOfBlock += "-"; }
+                                tb.secondTextOfBlock += KlisheParams.GetBlock("face_name_" + fc.faceName.ToString()) + "о";//записываем в текст имя поверхности
+
+                                firstTimeInBlock = false;
+                            }
+                            else {  edge = true; }
+                            
+                          
+                        }
 
                     }
-                    haveOne = false;
+                    if (!onlyEdge)
+                    {
+                        tb.secondTextOfBlock += "й поверхности ";
+
+                        if (tooth.isFront)
+                        {
+                            if (edge) tb.secondTextOfBlock += KlisheParams.GetBlock("face_name_with_edge");
+                            else tb.secondTextOfBlock += KlisheParams.GetBlock("face_name_without_edge");
+                        }
+                    }
+
+                    firstTimeInListOfBlocks = false;
+
 
                 }
 
+            
+                text_blocks.Add(tb);
 
 
 
             }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            //foreach (Condition cond in tooth.GetConditionsOfTooth())
+            //{
+
+            //    foreach (text_block tb in text_blocks)
+            //    {
+            //        if (((Condition)tb.comparer).Name == cond.Name)
+            //        {
+
+
+            //        }
+            //    }
+
+            //}
+
+
+            
+            //foreach (Face face in tooth.GetAllFaces())//перебираем все поверхности
+            //{
+
+            //    foreach (Condition cond in face.GetConditionsOfFace())//перебираем все состояния каждой поверхности
+            //    {
+            //        foreach(text_block tb in  text_blocks){//проверяем все уже имеющиеся блоки
+            //            if (((Condition)tb.comparer).Name == cond.Name)//есть ли уже такие состояния в описании
+            //            {
+            //                haveOne = true;
+            //                bool alreadyConnected = false;
+            //                foreach (Face fc in tb.analogObjectsList)//проверяем нет ли среди поверхностей с таким же диагнозом, таких с которым эта поверхность уже соединена
+            //                {
+                               
+            //                        if (tooth.GetConnectionsOfCondition(cond.Name).Contains(fc))
+            //                        {
+                                        
+                                    
+            //                            if (((Condition)tb.comparer).Depth<cond.Depth)
+            //                            {
+                                   
+            //                                tb.comparer = cond;
+            //                            }
+            //                            alreadyConnected = true;
+            //                            break;
+            //                        }
+
+                                
+            //                }
+            //                if (!alreadyConnected)//если присоединенных поверхностей нет тогда она будет описываться отдельно.
+            //                {
+            //                    tb.analogObjectsList.Add(face);
+            //                    tb.multi = true;
+            //                }
+            //                break;
+            //            }
+                    
+
+            //        }
+
+            //        if (!haveOne)//если таких блоков текста с состояниями еще нет
+            //        {
+            //            text_block tb = new text_block();
+            //            tb.analogObjectsList.Add(face);
+            //            tb.layer = cond.layerForDiscription;
+            //            tb.comparer = cond;
+            //            tb.textOfBlock =  cond.Description;
+            //            tb.changerText = cond.multiDiscription;
+            //            text_blocks.Add(tb);
+
+            //        }
+            //        haveOne = false;
+
+            //    }
+
+
+
+
+            //}
+
             text_blocks = text_blocks.OrderBy(t => t.layer).ToList();//упорядочиваем список блоков текста по слоям (первые слои наиболее важные - кариес и тому подобное, потом уже идет описание остальных слоев)
 
-            foreach (text_block tb in text_blocks)
-            {
+            //foreach (text_block tb in text_blocks)
+            //{
 
 
                 
 
-                bool edge = false;
-               bool onlyEdge = false;
+            //    bool edge = false;
+            //   bool onlyEdge = false;
              
-                foreach (Face fc in tb.analogObjectsList)
-                {
-                    if (fc.faceName != Face.faceSide.edge)//если это не режущий край тогда
-                    {
-                        tb.allText += "на " + KlisheParams.GetBlock("face_name_" + fc.faceName.ToString()) + "о";//записываем в текст имя поверхности
+            //    foreach (Face fc in tb.analogObjectsList)
+            //    {
+            //        if (fc.faceName != Face.faceSide.edge)//если это не режущий край тогда
+            //        {
+            //            tb.allText += "на " + KlisheParams.GetBlock("face_name_" + fc.faceName.ToString()) + "о";//записываем в текст имя поверхности
 
-
-                        if (fc.GetConnections().Length > 0)//если есть присоединенные поверхности тогда добавляем их
-                        {
-                            foreach (Face connectedFace in fc.GetConnections())
-                            {
-                                if (connectedFace.faceName != Face.faceSide.edge) tb.allText += "-" + KlisheParams.GetBlock("face_name_" + connectedFace.faceName.ToString()) + "о";
-                                else edge = true;
-                            }
-                        }
-                        tb.allText += "й и ";
-                    }
-            //        
-            //            if (tb.allText == "") tb.allText += "на " + KlisheParams.GetBlock("face_name_" + fc.faceName.ToString()) + "о";
-            //            else tb.allText += "-" + KlisheParams.GetBlock("face_name_" + fc.faceName.ToString()) + "о";
+            //            List<Face> connections = fc.GetConnections();
+            //            if (connections.Count > 0)//если есть присоединенные поверхности тогда добавляем их
+            //            {
+            //                foreach (Face connectedFace in connections)
+            //                {
+            //                    if (connectedFace.faceName != Face.faceSide.edge) tb.allText += "-" + KlisheParams.GetBlock("face_name_" + connectedFace.faceName.ToString()) + "о";
+            //                    else edge = true;
+            //                }
+            //            }
+            //            tb.allText += "й и ";
             //        }
-                    else
-                    {
-                        if (tb.allText == "" && tb.analogObjectsList.Count == 1)
-                        {
-                            onlyEdge = true;
-                            tb.allText += "по " + KlisheParams.GetBlock("face_name_" + fc.faceName.ToString() + "_onthe") + " ";
-                        }
-                        else edge = true;
-                    }
-                }
-                if (!onlyEdge) tb.allText = tb.allText.Remove(tb.allText.Length-2)+ " поверхности ";
-                if (edge) tb.allText += " с выходом на режущий край ";
+            ////        
+            ////            if (tb.allText == "") tb.allText += "на " + KlisheParams.GetBlock("face_name_" + fc.faceName.ToString()) + "о";
+            ////            else tb.allText += "-" + KlisheParams.GetBlock("face_name_" + fc.faceName.ToString()) + "о";
+            ////        }
+            //        else
+            //        {
+            //            if (tb.allText == "" && tb.analogObjectsList.Count == 1)
+            //            {
+            //                onlyEdge = true;
+            //                tb.allText += "по " + KlisheParams.GetBlock("face_name_" + fc.faceName.ToString() + "_onthe") + " ";
+            //            }
+            //            else edge = true;
+            //        }
+            //    }
+            //    if (!onlyEdge) tb.allText = tb.allText.Remove(tb.allText.Length-2)+ " поверхности ";
+            //    if (edge) tb.allText += " с выходом на режущий край ";
+
+
+            foreach (text_block tb in text_blocks)
+            {
+                tb.allText = tb.secondTextOfBlock;
                 if (tb.multi)
                 {
                    
@@ -208,6 +327,9 @@ namespace KlisheNamespace
                 tb.ToUpperFirstChar(text);
 
                 text += tb.allText;
+
+
+
             }//end of foreach text_block
 
 

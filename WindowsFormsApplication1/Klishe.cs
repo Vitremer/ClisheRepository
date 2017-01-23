@@ -35,6 +35,7 @@ namespace KlisheNamespace
         Objective obj;
         Rvg rvg;
         DSText diag;
+        TreatText treat;
 
         #region fields
         List<Tooth> Tooths = new List<Tooth>();//список зубов которые будут в клише
@@ -64,6 +65,12 @@ namespace KlisheNamespace
         {
             get { return diag = new DSText(this); }
         }
+        public TreatText treatment
+        {
+            get { return treat = new TreatText(this); }
+        }
+
+
         #endregion
 
         #region constructors
@@ -202,7 +209,7 @@ namespace KlisheNamespace
             mainText += jaloby.GetText() + anamnes.GetText() + objective.GetText();
                 if(haveRvg) mainText += rentgen.GetText();
                mainText += diagnos.GetText();
-            
+               mainText += treatment.GetText();
             return mainText;
         }
         #endregion

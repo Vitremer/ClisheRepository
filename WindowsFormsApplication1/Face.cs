@@ -9,7 +9,7 @@ namespace KlisheNamespace
     class Face
     {
         #region fields
-        public enum faceSide {all, okklusion, medial, distal, palatinal, vestibular, lingual, edge };
+        public enum faceSide {all, okklusion, medial, distal, palatinal, vestibular, lingual, edge, cervical};
         faceSide side;
         List<Face> connections = new List<Face>();//список сообщений с другими поверхностями
         List<Condition> conditionsOfFace = new List<Condition>();
@@ -169,6 +169,10 @@ namespace KlisheNamespace
 
 
         }
+        public Condition GetConditionFromName(string condName)
+        {
+            return conditionsOfFace.Find(c => c.Name == condName);
+        }
 
         public List<Condition> GetConditionsOfFace()//метод возвращает лист всех заболеваний данной поверхности(пломбы, кариесы, клиновидные дефекты)
         {
@@ -275,18 +279,54 @@ namespace KlisheNamespace
                 AddCondition(newConditions[index], changeOld);
             }
         }
-        public Face[] GetConnections()
+        //public Face[] GetConnections()
+        //{
+        //    Face[] connect = new Face[connections.Count];
+        //    int i = 0;
+        //    foreach (Face con in connections)
+        //    {
+        //        connect[i] = con;
+        //        i++;
+        //    }
+        //    return connect;
+        //}
+        /// <summary>
+        /// Рекурсивный внутренний метод проверки соединений у подсоединенных к данной поверхности поверхностей. Исключает уже имеющиеся в списке соединенных поверхности от добавления, с целью предотвратить бесконечность цикла.
+        /// </summary>
+        /// <param name="connect">Список уже присоединенных поверхностей - он исключается каждый раз из свежего списка поверхностей.</param>
+        void _GetInternalConnections(List<Face> connect)
         {
-            Face[] connect = new Face[connections.Count];
-            int i = 0;
+            
+            List<Face> freshConnections = connections.Except(connect).ToList();
+            connect.AddRange(freshConnections);
+
+
+            foreach (Face con in freshConnections)
+            {
+
+                con._GetInternalConnections(connect);
+            }
+           
+
+        }
+        /// <summary>
+        /// Возвращает список всех соединенных между собой по цепочке поверхностей.
+        /// </summary>
+        /// <returns>Возвращает список всех соединенных между собой по цепочке поверхностей.</returns>
+         public List<Face> GetConnections()
+        {
+            List<Face> connect = new List<Face>();
+            connect.Add(this);
+            connect.AddRange(connections);
             foreach (Face con in connections)
             {
-                connect[i] = con;
-                i++;
+               
+               con._GetInternalConnections(connect);
+                
             }
+            connect.Remove(this);
             return connect;
         }
-
         public Face Copy()
         {
             Face newFace = new Face(this);

@@ -150,7 +150,7 @@ namespace KlisheNamespace
                         tb.allText += "на " + KlisheParams.GetBlock("face_name_" + fc.faceName.ToString()) + "о";//записываем в текст имя поверхности
 
 
-                        if (fc.GetConnections().Length > 0)//если есть присоединенные поверхности тогда добавляем их
+                        if (fc.GetConnections().Count > 0)//если есть присоединенные поверхности тогда добавляем их
                         {
                             foreach (Face connectedFace in fc.GetConnections())
                             {

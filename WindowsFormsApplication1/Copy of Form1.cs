@@ -23,6 +23,8 @@ namespace KlisheNamespace
         Treatment currentTreatment = new Treatment();
       
         CheckBox currentChckBx;
+        Tooth.connect currentCon;
+     
         Face faceWhichDragged = new Face();
         bool connection = false;
        
@@ -164,9 +166,12 @@ namespace KlisheNamespace
          
             InitializeComponent();
 
-            RenewMaterals();  
-                 
-               foreach(Condition cond in KlisheParams.conditionOfFaceList)
+            RenewMaterals();
+
+            #region Creation Of List Condition Menu
+
+            FaceConditionsMenu.Items.Add(new ToolStripLabel(KlisheParams.GetBlock("form1_conditionMenu_text")));
+            foreach (Condition cond in KlisheParams.conditionOfFaceList)
                {
                    if(cond.availableDepths.Length>1)
                    {
@@ -190,10 +195,34 @@ namespace KlisheNamespace
                      
                       menuItem.Click += new EventHandler(AnyToolStripMenuItem_Clicked);  
                    }
+
+               }
+
+            #endregion
+
+            #region Creation Of List Connections Menu
+
+
+
+           ConnectionsCondContextMenu.Items.Add( new ToolStripLabel(KlisheParams.GetBlock("form1_connectionMenu_text")));
+            foreach (Condition cond in KlisheParams.conditionOfFaceList)
+               {
                    
-             }
-            
-              
+                       ToolStripMenuItem menuItem = new System.Windows.Forms.ToolStripMenuItem();
+                       menuItem.Text = cond.Name;
+                    
+                    ConnectionsCondContextMenu.Items.Add(menuItem);
+
+
+                    menuItem.Click += new EventHandler(ConnectionsCondContextMenu_ItemClicked);
+                 
+
+               }
+
+
+
+#endregion
+
             toolTip1.SetToolTip(vestF, "");
             toolTip1.SetToolTip(okklF, "");
             toolTip1.SetToolTip(distF, "");
@@ -442,19 +471,7 @@ namespace KlisheNamespace
 
         }
 
-        void UpdateConnections()
-        {
-
-            foreach (CheckBox conBut in connectButtons)
-            {
-                string name = conBut.Name.Substring(3, 2);
-
-                if (currentFormTooth.Connections.Contains((Tooth.connect)Enum.Parse(typeof(Tooth.connect), name)))
-                    conBut.BackColor = Color.Red;
-                else conBut.BackColor = Color.Transparent;
-
-            }
-        }
+      
 
 
 
@@ -473,7 +490,9 @@ namespace KlisheNamespace
             }
 
         }
-
+        /// <summary>
+        /// Обновляет форму
+        /// </summary>
         void UpdateTooth()
         {
             UpdateColor();
@@ -495,13 +514,13 @@ namespace KlisheNamespace
             applicationBox.SelectedItem = currentFormTooth.Treat.anest.usingApplication;
             anestBox.SelectedItem = currentFormTooth.Treat.anest.usingAnestetic;
             volumeAnest.Text = currentFormTooth.Treat.anest.mlOfAnest.ToString();
-            healCheck.Checked = currentFormTooth.Treat.heal;
-            isoCheck.Checked = currentFormTooth.Treat.iso;
-           
-            healFillBox.SelectedItem = currentFormTooth.Treat.usingHealFill;
-            isoFillBox.SelectedItem = currentFormTooth.Treat.usingIsoFill;
-            plombBox.SelectedItem = currentFormTooth.Treat.usingPlomb;
-            string[] tempArray = currentFormTooth.Treat.usingColors.ToArray();
+            healCheck.Checked = currentFormTooth.Treat.plombing.heal;
+            isoCheck.Checked = currentFormTooth.Treat.plombing.iso;
+
+            healFillBox.SelectedItem = currentFormTooth.Treat.plombing.usingHealFill;
+            isoFillBox.SelectedItem = currentFormTooth.Treat.plombing.usingIsoFill;
+            plombBox.SelectedItem = currentFormTooth.Treat.plombing.usingPlomb;
+            string[] tempArray = currentFormTooth.Treat.plombing.usingColors.ToArray();
             colorList.SelectedItem = null;
             foreach (string col in tempArray)
             {
@@ -540,6 +559,7 @@ namespace KlisheNamespace
                 case "orF": if (currentFormTooth.kvadrantNumb == 1 || currentFormTooth.kvadrantNumb == 2) return Face.faceSide.palatinal;//если же зуб верхний - тогда оральную поверхность называем небной, а нижние зубы -язычной
                     else return Face.faceSide.lingual;
 
+                case "cervF": return Face.faceSide.cervical;
                 default: return Face.faceSide.okklusion;
 
             }
@@ -634,6 +654,19 @@ namespace KlisheNamespace
             return col;
         }
 
+         void UpdateConnections()
+         {
+
+             foreach (CheckBox conBut in connectButtons)
+             {
+                 string name = conBut.Name.Substring(3, 2);
+
+                 if (currentFormTooth.Connections.Contains((Tooth.connect)Enum.Parse(typeof(Tooth.connect), name)))
+                     conBut.BackColor = Color.Red;
+                 else conBut.BackColor = Color.Transparent;
+
+             }
+         }
 
          void UpdateColor()
          {
@@ -676,9 +709,90 @@ namespace KlisheNamespace
 
          }
 
+         private void ConnectionsCondContextMenu_ItemClicked(object sender, EventArgs e)
+         {
+             string itemName = ((ToolStripMenuItem)sender).Text;
+             bool connected = currentFormTooth.Connections.Contains(currentCon);
+             currentFormTooth.SwitchConectionsOfCondition(itemName, currentCon);
+
+             UpdateConnections();
+
+         }
+         private void conAny_CheckedChanged(object sender, EventArgs e)
+         {
+             CheckBox checkBoxSender = (CheckBox)sender;
+             string name = checkBoxSender.Name.Substring(3, 2);
+             Tooth.connect con = (Tooth.connect)Enum.Parse(typeof(Tooth.connect), name);
+             currentFormTooth.SwitchConnection(con);
+             if (!currentFormTooth.Connections.Contains(con))
+             {
+
+                 checkBoxSender.BackColor = Color.Transparent;
+             }
+             else
+             {
+
+                 checkBoxSender.BackColor = Color.Red;
+             }
+
+         }
 
 
-         private void contextMenuStrip1_Opened(object sender, EventArgs e)
+         private void ConnectionsCondContextMenu_Opening(object sender, CancelEventArgs e)
+         {
+
+
+              currentChckBx = (CheckBox)((ContextMenuStrip)sender).SourceControl;
+              string name = currentChckBx.Name.Substring(3, 2);
+              
+                  currentCon = (Tooth.connect)Enum.Parse(typeof(Tooth.connect), name);
+                  List<Condition> sharedConditions = currentFormTooth.GetConditionsOfConnection(currentCon,true);
+                  bool connected = currentFormTooth.Connections.Contains(currentCon);
+
+            foreach (ToolStripMenuItem tsmi in ConnectionsCondContextMenu.Items.OfType<ToolStripMenuItem>())
+            {
+              
+
+                Condition haveCond = sharedConditions.Find(c => c.Name == tsmi.Text);
+
+                if (haveCond != null)
+                {
+
+
+                    tsmi.Visible = true;
+                    List<Tooth.connect> conList = currentFormTooth.GetConnectionsOfCondition(haveCond.Name);
+                    if (conList != null)
+                    {
+                        if (conList.Contains(currentCon))//если в данном месте данное состояние соединено на данном зубе то галочку ставим
+                        {
+                            tsmi.Checked = true;
+                        }
+                        else
+                        {
+
+                            tsmi.Checked = false;
+                        }
+                    }
+                    else
+                    {
+                        tsmi.Checked = false;
+                    }
+                }
+                else
+                {
+                    tsmi.Visible = false;
+                }
+
+
+
+            }
+
+          
+
+         }
+       
+
+         private void ConditionsMenuItem_Opened(object sender, EventArgs e)//открытие контекстного меню состояний поверхностей правой кнопкой мыши
          {
 
              currentChckBx = (CheckBox)((ContextMenuStrip)sender).SourceControl;
@@ -690,8 +804,8 @@ namespace KlisheNamespace
                  
              //}
              //List<ToolStripItem> needToCheckItems = new List<ToolStripItem>();
-               
-             foreach (ToolStripMenuItem tsmi in FaceConditionsMenu.Items)
+
+             foreach (ToolStripMenuItem tsmi in FaceConditionsMenu.Items.OfType<ToolStripMenuItem>())
              {
                  Condition condWhichHaveOnFace=currFace.GetConditionsOfFace().Find(c => c.Name == tsmi.Text);
 
@@ -786,25 +900,7 @@ namespace KlisheNamespace
      
 #region checkedChanged code
 
-        private void conAny_CheckedChanged(object sender, EventArgs e)
-        {
-            CheckBox checkBoxSender = (CheckBox)sender;
-            string name = checkBoxSender.Name.Substring(3, 2);
-            Tooth.connect con = (Tooth.connect)Enum.Parse(typeof(Tooth.connect), name);
-            currentFormTooth.SwitchConnection(con);
-            if (!currentFormTooth.Connections.Contains(con))
-            {
-               
-                checkBoxSender.BackColor = Color.Transparent;
-            }
-            else
-            {
-                
-                checkBoxSender.BackColor = Color.Red;
-            }
-
-        }
-
+       
         private void ruinMoreHalf_CheckedChanged(object sender, EventArgs e)
         {
             if (ruinMoreHalf.Checked)
@@ -862,13 +958,13 @@ namespace KlisheNamespace
         private void heal_CheckedChanged(object sender, EventArgs e)
         {
             healFillBox.Enabled = healCheck.Checked;
-            currentFormTooth.Treat.heal = healCheck.Checked;
+            currentFormTooth.Treat.plombing.heal = healCheck.Checked;
         }
 
         private void isolation_CheckedChanged(object sender, EventArgs e)
         {
             isoFillBox.Enabled = isoCheck.Checked;
-            currentFormTooth.Treat.iso = isoCheck.Checked;
+            currentFormTooth.Treat.plombing.iso = isoCheck.Checked;
         }
 
         #endregion
@@ -892,8 +988,8 @@ namespace KlisheNamespace
         {
             if (plombBox.DataSource != null)
             {
-                currentFormTooth.Treat.usingPlomb = KlisheParams.findMaterial(((Materials)plombBox.SelectedItem).Name);
-                isoFillBox.SelectedValue = currentFormTooth.Treat.defIsoFill;
+                currentFormTooth.Treat.plombing.usingPlomb = KlisheParams.findMaterial(((Materials)plombBox.SelectedItem).Name);
+                isoFillBox.SelectedValue = currentFormTooth.Treat.plombing.defIsoFill;
 
 
                 if (((Materials)plombBox.SelectedItem) != null)
@@ -931,23 +1027,23 @@ namespace KlisheNamespace
         {
 
 
-            currentFormTooth.Treat.usingColors.Clear();
+            currentFormTooth.Treat.plombing.usingColors.Clear();
             foreach (string col in colorList.SelectedItems)
             {
 
-                currentFormTooth.Treat.usingColors.Add(col);
+                currentFormTooth.Treat.plombing.usingColors.Add(col);
             }
 
         }
 
         private void healFillBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            currentFormTooth.Treat.usingHealFill = (Materials)healFillBox.SelectedItem;
+            currentFormTooth.Treat.plombing.usingHealFill = (Materials)healFillBox.SelectedItem;
         }
 
         private void isoFillBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            currentFormTooth.Treat.usingIsoFill = (Materials)isoFillBox.SelectedItem;
+            currentFormTooth.Treat.plombing.usingIsoFill = (Materials)isoFillBox.SelectedItem;
 
         }
         #endregion
@@ -1076,7 +1172,8 @@ namespace KlisheNamespace
         {
             currentClishe.haveRvg = rvg.Checked;
         }
-       
+
+
  
         
 

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace KlisheNamespace
 {[Serializable]
-    class TreatmentHistory
+    class TreatmentHistory//история болезни пока не задействована - для развития
     {
     }
 }

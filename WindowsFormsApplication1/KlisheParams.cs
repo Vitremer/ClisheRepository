@@ -48,16 +48,19 @@ namespace KlisheNamespace
             }
             catch //если словаря нет - загружаем по умолчанию новый
             {
-
+                blocksDictionary.Add("form1_connectionMenu_text", "Соединены между собой:");
+                blocksDictionary.Add("form1_conditionMenu_text", "Состояния поверхности:");
+                #region Блоки текста Жалобы
                 blocksDictionary.Add("jaloby_Кариес_pov", " на наличие кариозного пятна, быстропроходящую реакцию на сладкое,");
                 blocksDictionary.Add("jaloby_Кариес", " на кратковременные боли от механических, химических, температурных  раздражителей, попадание пищи,  наличие  полости");
                 blocksDictionary.Add("jaloby_Пломба с нарушением", " на неудовлетворительный внешний вид пломбы, потемнение и разрушенность пломбы, ");
 
                 blocksDictionary.Add("jaloby_Несостоятельный контакт", " на застревание пищи, постоянную кровоточивость десны между зубами ");
                 blocksDictionary.Add("jaloby_Клиновидный дефект", "на боли от холодного, сладкого, кислого, неприятные ощущения при чистке зубов , наличие дефекта твердых тканей около десны");
-
+               
 
                 //устаревший код
+                /*
                 blocksDictionary.Add("jaloby_plombCont", " на застревание пищи, постоянную кровоточивость десны между зубами, неудовлетворительный внешний вид пломбы");
                 blocksDictionary.Add("jaloby_carCont", " на кратковременные боли от механических, химических, температурных  раздражителей, попадание пищи,  наличие  полости");                
                 blocksDictionary.Add("jaloby_plomb", " на неудовлетворительный внешний вид пломбы, потемнение пломбы");
@@ -68,12 +71,14 @@ namespace KlisheNamespace
                 blocksDictionary.Add("jaloby_glub_car_info", " Текст блока с жалобами при глубоком кариесе.");
                 blocksDictionary.Add("jaloby_giper_car_info", " Текст блока с жалобами при кариесе - гиперемия пульпы.");
                 blocksDictionary.Add("jaloby_contact_info", " Текст блока с жалобами при несостоятельном контакте.");
-              //
-
+                 */
+                //
+               
                 blocksDictionary.Add("jaloby_zubOne", " в области зуба ");
                 blocksDictionary.Add("jaloby_zubMany", " в области зубов ");
+                #endregion
 
-                #region Anamnes TextBlocks //Блоки текста для анамнеза
+                #region Блоки текста для анамнеза
                 blocksDictionary.Add("anamnes_pretreat_0", " - ранее не лечен, ");
                 blocksDictionary.Add("anamnes_pretreat_1", " - ранее  лечен по поводу неосложненного кариеса, ");
                 blocksDictionary.Add("anamnes_pretreat_2", " - ранее лечен по поводу осложненного кариеса, ");
@@ -98,22 +103,22 @@ namespace KlisheNamespace
                 //
                 #endregion
 
-
+                #region Блоки текста Имен поверхностей
                 blocksDictionary.Add("face_name_distal", "дистальн");
                 blocksDictionary.Add("face_name_medial", "медиальн");
                 blocksDictionary.Add("face_name_palatinal", "нёбн");
                 blocksDictionary.Add("face_name_okklusion", "окклюзионн");
                 blocksDictionary.Add("face_name_vestibular", "вестибулярн");
                 blocksDictionary.Add("face_name_lingual", "язычн");
-                blocksDictionary.Add("face_name_edge", "режущий край");
-
-                
+                blocksDictionary.Add("face_name_edge", "режущий край");                
                 blocksDictionary.Add("face_name_edge_onthe", "режущему краю");
+                blocksDictionary.Add("face_name_with_edge", " с выходом на режущий край ");
+                blocksDictionary.Add("face_name_without_edge", " без выхода на режущий край ");
+
+                #endregion
 
 
-
-
-
+                #region Блоки текста обьективно
                 blocksDictionary.Add("objectivno_connected", "сообщающиеся между собой");
 
                 
@@ -186,11 +191,13 @@ namespace KlisheNamespace
                 blocksDictionary.Add("objectivno_zondir_glub", "по всему дну полости, дно плотное пигментированное.");
                 blocksDictionary.Add("objectivno_zondir_sred", "по эмалево-дентинной границе.");
                 blocksDictionary.Add("objectivno_zondir_pov", "по поверхности полости.");
+                #endregion
 
-
+                #region Блоки текста RVG
                 blocksDictionary.Add("rvg_clean", ", корневые каналы не запломбированы, изменений в периодонте не визуализируется.");
+                #endregion
 
-
+                #region Блоки текста Лечения
                 blocksDictionary.Add("treatment_local_anest", "под местной ");
                 blocksDictionary.Add("treatment_anest", "анестезией ");
                 blocksDictionary.Add("treatment_intraligamental_anest", "интралигаментарной ");
@@ -204,10 +211,19 @@ namespace KlisheNamespace
                 blocksDictionary.Add("treatment_prepare_clean", " чистка зуба циркулярной щеточкой с пастой детартрин, ");
                 blocksDictionary.Add("treatment_prepare_clean_multi", "зуба_зубов");
                 blocksDictionary.Add("treatment_prepare_kof", " кофердам, ");
-                blocksDictionary.Add("treatment_prepare_optragate", " оптрагейт, ");
+                blocksDictionary.Add("treatment_prepare_optra", " оптрагейт, ");
 
                 blocksDictionary.Add("treatment_prep", "  механическая обработка кариозной полости по ");
                 blocksDictionary.Add("treatment_prep_multi", "кариозной полости_кариозных полостей");
+
+                blocksDictionary.Add("treatment_blackClass_of", " по");
+                blocksDictionary.Add("treatment_blackClass_1", " I");
+                blocksDictionary.Add("treatment_blackClass_2", " II");
+                blocksDictionary.Add("treatment_blackClass_3", " III");
+                blocksDictionary.Add("treatment_blackClass_4", " IV");
+                blocksDictionary.Add("treatment_blackClass_5", " V");
+                blocksDictionary.Add("treatment_blackClass_6", " VI");
+                blocksDictionary.Add("treatment_blackClass_main", " классу по Блэку");
 
                 blocksDictionary.Add("treatment_med_cav", " медикаментозная обработка полости раствором хлоргексидина 2%, ");
                 blocksDictionary.Add("treatment_med_cav_multi", "полости_полостей");
@@ -217,7 +233,7 @@ namespace KlisheNamespace
 
                 blocksDictionary.Add("treatment_ftor", " Покрытие фторлаком.");
                 blocksDictionary.Add("treatment_remind", " Выдана памятка для пациента о правилах поведения после лечения зубов. Явка по записи.");
-               
+                #endregion 
 
 
 
@@ -226,7 +242,7 @@ namespace KlisheNamespace
 
 
 
-                
+
 
                 blocksDictionary.Add("kvadrant0", " ??? челюсти ??? ");
                 blocksDictionary.Add("kvadrant1", " верхней челюсти справа ");

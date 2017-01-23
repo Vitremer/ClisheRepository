@@ -12,6 +12,7 @@ namespace KlisheNamespace
         public Object comparer = new Object();
         public string analogObjects="";
         public string textOfBlock = "";
+        public string secondTextOfBlock = "";
          public string allText = "";
         public bool multi = false;
          string[] _changerTextBlocks;
@@ -98,7 +99,7 @@ namespace KlisheNamespace
                 foreach (char ch in textToJoin.Substring(indexOFPoint, textToJoin.Length - indexOFPoint).ToCharArray())//и проверяем 
                 {
 
-                    if (ch != ' ')
+                    if (ch != ' ')//если после точки не только пробелы а что-то написано тогда 
                     {
                         onlySpacesAtTheEnd = false;
                         break;

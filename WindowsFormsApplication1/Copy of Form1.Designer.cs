@@ -33,7 +33,7 @@
             this.button1 = new System.Windows.Forms.Button();
             this.vestF = new System.Windows.Forms.CheckBox();
             this.FaceConditionsMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.ConditionsFaceContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.кариесToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.povcar_pov = new System.Windows.Forms.ToolStripMenuItem();
             this.car_sred = new System.Windows.Forms.ToolStripMenuItem();
@@ -60,11 +60,13 @@
             this.numberOfToothText = new System.Windows.Forms.MaskedTextBox();
             this.TabPanel = new System.Windows.Forms.TabControl();
             this.Caries = new System.Windows.Forms.TabPage();
+            this.rvg = new System.Windows.Forms.CheckBox();
             this.deleteNumber = new System.Windows.Forms.Button();
             this.listOfTooths = new System.Windows.Forms.ListBox();
             this.ToothList = new System.Windows.Forms.Label();
             this.Osmotr = new System.Windows.Forms.CheckBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.cervF = new System.Windows.Forms.CheckBox();
             this.erase = new System.Windows.Forms.Button();
             this.addAnestesy = new System.Windows.Forms.Button();
             this.colorLabel = new System.Windows.Forms.Label();
@@ -92,6 +94,7 @@
             this.distF = new System.Windows.Forms.CheckBox();
             this.okklF = new System.Windows.Forms.CheckBox();
             this.conVO = new System.Windows.Forms.CheckBox();
+            this.ConnectionsCondContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.conVD = new System.Windows.Forms.CheckBox();
             this.conVM = new System.Windows.Forms.CheckBox();
             this.conDN = new System.Windows.Forms.CheckBox();
@@ -104,8 +107,7 @@
             this.splitter1 = new System.Windows.Forms.Splitter();
             this.splitter2 = new System.Windows.Forms.Splitter();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.rvg = new System.Windows.Forms.CheckBox();
-            this.contextMenuStrip1.SuspendLayout();
+            this.ConditionsFaceContextMenu.SuspendLayout();
             this.TabPanel.SuspendLayout();
             this.Caries.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -132,7 +134,7 @@
             this.vestF.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
             this.vestF.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White;
             this.vestF.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.vestF.Location = new System.Drawing.Point(137, 18);
+            this.vestF.Location = new System.Drawing.Point(137, 24);
             this.vestF.Name = "vestF";
             this.vestF.Size = new System.Drawing.Size(94, 23);
             this.vestF.TabIndex = 8;
@@ -150,22 +152,22 @@
             // 
             this.FaceConditionsMenu.Name = "FaceConditionsMenu";
             this.FaceConditionsMenu.Size = new System.Drawing.Size(61, 4);
-            this.FaceConditionsMenu.Opened += new System.EventHandler(this.contextMenuStrip1_Opened);
+            this.FaceConditionsMenu.Opened += new System.EventHandler(this.ConditionsMenuItem_Opened);
             this.FaceConditionsMenu.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
             // 
-            // contextMenuStrip1
+            // ConditionsFaceContextMenu
             // 
-            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ConditionsFaceContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.кариесToolStripMenuItem,
             this.contact,
             this.дефектToolStripMenuItem,
             this.plomb,
             this.клиновидныйДефектToolStripMenuItem,
             this.CleanToolStripMenuItem});
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(203, 136);
-            this.contextMenuStrip1.Opened += new System.EventHandler(this.contextMenuStrip1_Opened);
-            this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
+            this.ConditionsFaceContextMenu.Name = "contextMenuStrip1";
+            this.ConditionsFaceContextMenu.Size = new System.Drawing.Size(201, 136);
+            this.ConditionsFaceContextMenu.Opened += new System.EventHandler(this.ConditionsMenuItem_Opened);
+            this.ConditionsFaceContextMenu.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
             // 
             // кариесToolStripMenuItem
             // 
@@ -175,7 +177,7 @@
             this.car_glub,
             this.car_giper});
             this.кариесToolStripMenuItem.Name = "кариесToolStripMenuItem";
-            this.кариесToolStripMenuItem.Size = new System.Drawing.Size(202, 22);
+            this.кариесToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
             this.кариесToolStripMenuItem.Text = "Кариес";
             // 
             // povcar_pov
@@ -209,7 +211,7 @@
             // contact
             // 
             this.contact.Name = "contact";
-            this.contact.Size = new System.Drawing.Size(202, 22);
+            this.contact.Size = new System.Drawing.Size(200, 22);
             this.contact.Text = "Несост.контакт";
             this.contact.Click += new System.EventHandler(this.AnyToolStripMenuItem_Clicked);
             // 
@@ -221,34 +223,34 @@
             this.defect_glub,
             this.defect_giper});
             this.дефектToolStripMenuItem.Name = "дефектToolStripMenuItem";
-            this.дефектToolStripMenuItem.Size = new System.Drawing.Size(202, 22);
+            this.дефектToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
             this.дефектToolStripMenuItem.Text = "Дефект(пломбы, скол)";
             // 
             // defect_pov
             // 
             this.defect_pov.Name = "defect_pov";
-            this.defect_pov.Size = new System.Drawing.Size(204, 22);
+            this.defect_pov.Size = new System.Drawing.Size(207, 22);
             this.defect_pov.Text = "В эмали";
             this.defect_pov.Click += new System.EventHandler(this.AnyToolStripMenuItem_Clicked);
             // 
             // defect_sred
             // 
             this.defect_sred.Name = "defect_sred";
-            this.defect_sred.Size = new System.Drawing.Size(204, 22);
+            this.defect_sred.Size = new System.Drawing.Size(207, 22);
             this.defect_sred.Text = "В плащевом дентине";
             this.defect_sred.Click += new System.EventHandler(this.AnyToolStripMenuItem_Clicked);
             // 
             // defect_glub
             // 
             this.defect_glub.Name = "defect_glub";
-            this.defect_glub.Size = new System.Drawing.Size(204, 22);
+            this.defect_glub.Size = new System.Drawing.Size(207, 22);
             this.defect_glub.Text = "Околопульпарный";
             this.defect_glub.Click += new System.EventHandler(this.AnyToolStripMenuItem_Clicked);
             // 
             // defect_giper
             // 
             this.defect_giper.Name = "defect_giper";
-            this.defect_giper.Size = new System.Drawing.Size(204, 22);
+            this.defect_giper.Size = new System.Drawing.Size(207, 22);
             this.defect_giper.Text = "Сообщение с полостью";
             this.defect_giper.Click += new System.EventHandler(this.AnyToolStripMenuItem_Clicked);
             // 
@@ -260,34 +262,34 @@
             this.plomb_glub,
             this.plomb_giper});
             this.plomb.Name = "plomb";
-            this.plomb.Size = new System.Drawing.Size(202, 22);
+            this.plomb.Size = new System.Drawing.Size(200, 22);
             this.plomb.Text = "Пломба";
             // 
             // plomb_pov
             // 
             this.plomb_pov.Name = "plomb_pov";
-            this.plomb_pov.Size = new System.Drawing.Size(230, 22);
+            this.plomb_pov.Size = new System.Drawing.Size(234, 22);
             this.plomb_pov.Text = "В эмали";
             this.plomb_pov.Click += new System.EventHandler(this.AnyToolStripMenuItem_Clicked);
             // 
             // plomb_sred
             // 
             this.plomb_sred.Name = "plomb_sred";
-            this.plomb_sred.Size = new System.Drawing.Size(230, 22);
+            this.plomb_sred.Size = new System.Drawing.Size(234, 22);
             this.plomb_sred.Text = "В плащевом дентине";
             this.plomb_sred.Click += new System.EventHandler(this.AnyToolStripMenuItem_Clicked);
             // 
             // plomb_glub
             // 
             this.plomb_glub.Name = "plomb_glub";
-            this.plomb_glub.Size = new System.Drawing.Size(230, 22);
+            this.plomb_glub.Size = new System.Drawing.Size(234, 22);
             this.plomb_glub.Text = "В околопульпарном дентине";
             this.plomb_glub.Click += new System.EventHandler(this.AnyToolStripMenuItem_Clicked);
             // 
             // plomb_giper
             // 
             this.plomb_giper.Name = "plomb_giper";
-            this.plomb_giper.Size = new System.Drawing.Size(230, 22);
+            this.plomb_giper.Size = new System.Drawing.Size(234, 22);
             this.plomb_giper.Text = "Сообщение с полостью";
             this.plomb_giper.Click += new System.EventHandler(this.AnyToolStripMenuItem_Clicked);
             // 
@@ -298,35 +300,35 @@
             this.klinDef_sred,
             this.klinDef_glub});
             this.клиновидныйДефектToolStripMenuItem.Name = "клиновидныйДефектToolStripMenuItem";
-            this.клиновидныйДефектToolStripMenuItem.Size = new System.Drawing.Size(202, 22);
+            this.клиновидныйДефектToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
             this.клиновидныйДефектToolStripMenuItem.Text = "Клиновидный дефект";
             this.клиновидныйДефектToolStripMenuItem.Visible = false;
             // 
             // klinDef_pov
             // 
             this.klinDef_pov.Name = "klinDef_pov";
-            this.klinDef_pov.Size = new System.Drawing.Size(133, 22);
+            this.klinDef_pov.Size = new System.Drawing.Size(127, 22);
             this.klinDef_pov.Text = "В эмали";
             this.klinDef_pov.Click += new System.EventHandler(this.AnyToolStripMenuItem_Clicked);
             // 
             // klinDef_sred
             // 
             this.klinDef_sred.Name = "klinDef_sred";
-            this.klinDef_sred.Size = new System.Drawing.Size(133, 22);
+            this.klinDef_sred.Size = new System.Drawing.Size(127, 22);
             this.klinDef_sred.Text = "Средний";
             this.klinDef_sred.Click += new System.EventHandler(this.AnyToolStripMenuItem_Clicked);
             // 
             // klinDef_glub
             // 
             this.klinDef_glub.Name = "klinDef_glub";
-            this.klinDef_glub.Size = new System.Drawing.Size(133, 22);
+            this.klinDef_glub.Size = new System.Drawing.Size(127, 22);
             this.klinDef_glub.Text = "Глубокий";
             this.klinDef_glub.Click += new System.EventHandler(this.AnyToolStripMenuItem_Clicked);
             // 
             // CleanToolStripMenuItem
             // 
             this.CleanToolStripMenuItem.Name = "CleanToolStripMenuItem";
-            this.CleanToolStripMenuItem.Size = new System.Drawing.Size(202, 22);
+            this.CleanToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
             this.CleanToolStripMenuItem.Text = "Очистить поверхность";
             this.CleanToolStripMenuItem.Click += new System.EventHandler(this.CleanToolStripMenuItem_Click);
             // 
@@ -393,6 +395,18 @@
             this.Caries.TabIndex = 0;
             this.Caries.Text = "Кариес";
             // 
+            // rvg
+            // 
+            this.rvg.Appearance = System.Windows.Forms.Appearance.Button;
+            this.rvg.AutoSize = true;
+            this.rvg.Location = new System.Drawing.Point(228, 23);
+            this.rvg.Name = "rvg";
+            this.rvg.Size = new System.Drawing.Size(56, 23);
+            this.rvg.TabIndex = 39;
+            this.rvg.Text = "Снимок";
+            this.rvg.UseVisualStyleBackColor = true;
+            this.rvg.CheckedChanged += new System.EventHandler(this.rvg_CheckedChanged);
+            // 
             // deleteNumber
             // 
             this.deleteNumber.Location = new System.Drawing.Point(134, 18);
@@ -435,6 +449,7 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.Transparent;
+            this.panel1.Controls.Add(this.cervF);
             this.panel1.Controls.Add(this.erase);
             this.panel1.Controls.Add(this.addAnestesy);
             this.panel1.Controls.Add(this.colorLabel);
@@ -475,6 +490,30 @@
             this.panel1.Size = new System.Drawing.Size(357, 393);
             this.panel1.TabIndex = 0;
             // 
+            // cervF
+            // 
+            this.cervF.AllowDrop = true;
+            this.cervF.Appearance = System.Windows.Forms.Appearance.Button;
+            this.cervF.AutoSize = true;
+            this.cervF.BackColor = System.Drawing.Color.Transparent;
+            this.cervF.ContextMenuStrip = this.FaceConditionsMenu;
+            this.cervF.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.cervF.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
+            this.cervF.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White;
+            this.cervF.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.cervF.Location = new System.Drawing.Point(139, 0);
+            this.cervF.Name = "cervF";
+            this.cervF.Size = new System.Drawing.Size(80, 23);
+            this.cervF.TabIndex = 39;
+            this.cervF.Text = "Пришеечная";
+            this.cervF.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.cervF.UseVisualStyleBackColor = false;
+            this.cervF.MouseEnter += new System.EventHandler(this.anyFace_MouseEnter);
+            this.cervF.DragDrop += new System.Windows.Forms.DragEventHandler(this.face_DragDrop);
+            this.cervF.MouseDown += new System.Windows.Forms.MouseEventHandler(this.facePress_MouseDown);
+            this.cervF.MouseHover += new System.EventHandler(this.anyFace_MouseHover);
+            this.cervF.DragEnter += new System.Windows.Forms.DragEventHandler(this.face_DragEnter);
+            // 
             // erase
             // 
             this.erase.Location = new System.Drawing.Point(3, 16);
@@ -487,7 +526,7 @@
             // 
             // addAnestesy
             // 
-            this.addAnestesy.Location = new System.Drawing.Point(183, 197);
+            this.addAnestesy.Location = new System.Drawing.Point(181, 199);
             this.addAnestesy.Name = "addAnestesy";
             this.addAnestesy.Size = new System.Drawing.Size(160, 23);
             this.addAnestesy.TabIndex = 37;
@@ -498,7 +537,7 @@
             // 
             this.colorLabel.AutoSize = true;
             this.colorLabel.Enabled = false;
-            this.colorLabel.Location = new System.Drawing.Point(5, 317);
+            this.colorLabel.Location = new System.Drawing.Point(3, 319);
             this.colorLabel.Name = "colorLabel";
             this.colorLabel.Size = new System.Drawing.Size(49, 13);
             this.colorLabel.TabIndex = 31;
@@ -506,7 +545,7 @@
             // 
             // addMaterial
             // 
-            this.addMaterial.Location = new System.Drawing.Point(249, 332);
+            this.addMaterial.Location = new System.Drawing.Point(247, 334);
             this.addMaterial.Name = "addMaterial";
             this.addMaterial.Size = new System.Drawing.Size(94, 48);
             this.addMaterial.TabIndex = 36;
@@ -517,7 +556,7 @@
             // plombBox
             // 
             this.plombBox.FormattingEnabled = true;
-            this.plombBox.Location = new System.Drawing.Point(154, 285);
+            this.plombBox.Location = new System.Drawing.Point(152, 287);
             this.plombBox.Name = "plombBox";
             this.plombBox.Size = new System.Drawing.Size(162, 21);
             this.plombBox.TabIndex = 30;
@@ -531,7 +570,7 @@
             this.colorList.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.colorList.FormattingEnabled = true;
             this.colorList.ItemHeight = 15;
-            this.colorList.Location = new System.Drawing.Point(60, 313);
+            this.colorList.Location = new System.Drawing.Point(58, 315);
             this.colorList.MultiColumn = true;
             this.colorList.Name = "colorList";
             this.colorList.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
@@ -542,7 +581,7 @@
             // plombir
             // 
             this.plombir.AutoSize = true;
-            this.plombir.Location = new System.Drawing.Point(19, 288);
+            this.plombir.Location = new System.Drawing.Point(17, 290);
             this.plombir.Name = "plombir";
             this.plombir.Size = new System.Drawing.Size(96, 13);
             this.plombir.TabIndex = 29;
@@ -552,7 +591,7 @@
             // 
             this.isoFillBox.Enabled = false;
             this.isoFillBox.FormattingEnabled = true;
-            this.isoFillBox.Location = new System.Drawing.Point(154, 257);
+            this.isoFillBox.Location = new System.Drawing.Point(152, 259);
             this.isoFillBox.Name = "isoFillBox";
             this.isoFillBox.Size = new System.Drawing.Size(162, 21);
             this.isoFillBox.TabIndex = 28;
@@ -563,7 +602,7 @@
             this.papilumDistalis.Appearance = System.Windows.Forms.Appearance.Button;
             this.papilumDistalis.AutoSize = true;
             this.papilumDistalis.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.papilumDistalis.Location = new System.Drawing.Point(268, 78);
+            this.papilumDistalis.Location = new System.Drawing.Point(268, 95);
             this.papilumDistalis.Name = "papilumDistalis";
             this.papilumDistalis.Size = new System.Drawing.Size(59, 23);
             this.papilumDistalis.TabIndex = 27;
@@ -576,7 +615,7 @@
             this.papilumMedialis.Appearance = System.Windows.Forms.Appearance.Button;
             this.papilumMedialis.AutoSize = true;
             this.papilumMedialis.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.papilumMedialis.Location = new System.Drawing.Point(38, 78);
+            this.papilumMedialis.Location = new System.Drawing.Point(38, 95);
             this.papilumMedialis.Name = "papilumMedialis";
             this.papilumMedialis.Size = new System.Drawing.Size(59, 23);
             this.papilumMedialis.TabIndex = 27;
@@ -588,7 +627,7 @@
             // 
             this.healFillBox.Enabled = false;
             this.healFillBox.FormattingEnabled = true;
-            this.healFillBox.Location = new System.Drawing.Point(154, 230);
+            this.healFillBox.Location = new System.Drawing.Point(152, 232);
             this.healFillBox.Name = "healFillBox";
             this.healFillBox.Size = new System.Drawing.Size(162, 21);
             this.healFillBox.TabIndex = 25;
@@ -597,7 +636,7 @@
             // ml
             // 
             this.ml.AutoSize = true;
-            this.ml.Location = new System.Drawing.Point(322, 179);
+            this.ml.Location = new System.Drawing.Point(320, 181);
             this.ml.Name = "ml";
             this.ml.Size = new System.Drawing.Size(21, 13);
             this.ml.TabIndex = 24;
@@ -605,7 +644,7 @@
             // 
             // volumeAnest
             // 
-            this.volumeAnest.Location = new System.Drawing.Point(290, 172);
+            this.volumeAnest.Location = new System.Drawing.Point(288, 174);
             this.volumeAnest.Mask = "0/0";
             this.volumeAnest.Name = "volumeAnest";
             this.volumeAnest.Size = new System.Drawing.Size(26, 20);
@@ -615,7 +654,7 @@
             // anestesyCheck
             // 
             this.anestesyCheck.AutoSize = true;
-            this.anestesyCheck.Location = new System.Drawing.Point(8, 174);
+            this.anestesyCheck.Location = new System.Drawing.Point(6, 176);
             this.anestesyCheck.Name = "anestesyCheck";
             this.anestesyCheck.Size = new System.Drawing.Size(80, 17);
             this.anestesyCheck.TabIndex = 21;
@@ -626,7 +665,7 @@
             // applicationCheck
             // 
             this.applicationCheck.AutoSize = true;
-            this.applicationCheck.Location = new System.Drawing.Point(8, 147);
+            this.applicationCheck.Location = new System.Drawing.Point(6, 149);
             this.applicationCheck.Name = "applicationCheck";
             this.applicationCheck.Size = new System.Drawing.Size(111, 17);
             this.applicationCheck.TabIndex = 20;
@@ -637,7 +676,7 @@
             // isoCheck
             // 
             this.isoCheck.AutoSize = true;
-            this.isoCheck.Location = new System.Drawing.Point(1, 261);
+            this.isoCheck.Location = new System.Drawing.Point(-1, 263);
             this.isoCheck.Name = "isoCheck";
             this.isoCheck.Size = new System.Drawing.Size(155, 17);
             this.isoCheck.TabIndex = 19;
@@ -648,7 +687,7 @@
             // healCheck
             // 
             this.healCheck.AutoSize = true;
-            this.healCheck.Location = new System.Drawing.Point(1, 234);
+            this.healCheck.Location = new System.Drawing.Point(-1, 236);
             this.healCheck.Name = "healCheck";
             this.healCheck.Size = new System.Drawing.Size(132, 17);
             this.healCheck.TabIndex = 18;
@@ -663,7 +702,7 @@
             this.anestBox.Enabled = false;
             this.anestBox.FormattingEnabled = true;
             this.anestBox.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.anestBox.Location = new System.Drawing.Point(137, 170);
+            this.anestBox.Location = new System.Drawing.Point(135, 172);
             this.anestBox.MaxDropDownItems = 10;
             this.anestBox.Name = "anestBox";
             this.anestBox.Size = new System.Drawing.Size(121, 21);
@@ -675,7 +714,7 @@
             this.applicationBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.applicationBox.Enabled = false;
             this.applicationBox.FormattingEnabled = true;
-            this.applicationBox.Location = new System.Drawing.Point(137, 145);
+            this.applicationBox.Location = new System.Drawing.Point(135, 147);
             this.applicationBox.Name = "applicationBox";
             this.applicationBox.Size = new System.Drawing.Size(121, 21);
             this.applicationBox.TabIndex = 16;
@@ -684,7 +723,7 @@
             // ruinLessHalf
             // 
             this.ruinLessHalf.AutoSize = true;
-            this.ruinLessHalf.Location = new System.Drawing.Point(161, 122);
+            this.ruinLessHalf.Location = new System.Drawing.Point(159, 124);
             this.ruinLessHalf.Name = "ruinLessHalf";
             this.ruinLessHalf.Size = new System.Drawing.Size(58, 17);
             this.ruinLessHalf.TabIndex = 15;
@@ -695,7 +734,7 @@
             // ruinMoreHalf
             // 
             this.ruinMoreHalf.AutoSize = true;
-            this.ruinMoreHalf.Location = new System.Drawing.Point(8, 122);
+            this.ruinMoreHalf.Location = new System.Drawing.Point(6, 124);
             this.ruinMoreHalf.Name = "ruinMoreHalf";
             this.ruinMoreHalf.Size = new System.Drawing.Size(149, 17);
             this.ruinMoreHalf.TabIndex = 14;
@@ -717,7 +756,7 @@
             this.orF.AllowDrop = true;
             this.orF.Appearance = System.Windows.Forms.Appearance.Button;
             this.orF.ContextMenuStrip = this.FaceConditionsMenu;
-            this.orF.Location = new System.Drawing.Point(137, 78);
+            this.orF.Location = new System.Drawing.Point(137, 95);
             this.orF.Name = "orF";
             this.orF.Size = new System.Drawing.Size(91, 23);
             this.orF.TabIndex = 4;
@@ -735,7 +774,7 @@
             this.medF.Appearance = System.Windows.Forms.Appearance.Button;
             this.medF.AutoSize = true;
             this.medF.ContextMenuStrip = this.FaceConditionsMenu;
-            this.medF.Location = new System.Drawing.Point(49, 49);
+            this.medF.Location = new System.Drawing.Point(37, 60);
             this.medF.Name = "medF";
             this.medF.Size = new System.Drawing.Size(80, 23);
             this.medF.TabIndex = 3;
@@ -753,7 +792,7 @@
             this.distF.Appearance = System.Windows.Forms.Appearance.Button;
             this.distF.AutoSize = true;
             this.distF.ContextMenuStrip = this.FaceConditionsMenu;
-            this.distF.Location = new System.Drawing.Point(236, 49);
+            this.distF.Location = new System.Drawing.Point(248, 60);
             this.distF.Name = "distF";
             this.distF.Size = new System.Drawing.Size(79, 23);
             this.distF.TabIndex = 2;
@@ -771,7 +810,7 @@
             this.okklF.AllowDrop = true;
             this.okklF.Appearance = System.Windows.Forms.Appearance.Button;
             this.okklF.ContextMenuStrip = this.FaceConditionsMenu;
-            this.okklF.Location = new System.Drawing.Point(135, 49);
+            this.okklF.Location = new System.Drawing.Point(137, 60);
             this.okklF.Name = "okklF";
             this.okklF.Size = new System.Drawing.Size(93, 23);
             this.okklF.TabIndex = 1;
@@ -787,8 +826,9 @@
             // 
             this.conVO.Appearance = System.Windows.Forms.Appearance.Button;
             this.conVO.AutoSize = true;
+            this.conVO.ContextMenuStrip = this.ConnectionsCondContextMenu;
             this.conVO.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.conVO.Location = new System.Drawing.Point(168, 31);
+            this.conVO.Location = new System.Drawing.Point(168, 40);
             this.conVO.Name = "conVO";
             this.conVO.Size = new System.Drawing.Size(26, 23);
             this.conVO.TabIndex = 12;
@@ -796,12 +836,20 @@
             this.conVO.UseVisualStyleBackColor = true;
             this.conVO.CheckedChanged += new System.EventHandler(this.conAny_CheckedChanged);
             // 
+            // ConnectionsCondContextMenu
+            // 
+            this.ConnectionsCondContextMenu.AccessibleRole = System.Windows.Forms.AccessibleRole.None;
+            this.ConnectionsCondContextMenu.Name = "ConnectionsCondContextMenu";
+            this.ConnectionsCondContextMenu.Size = new System.Drawing.Size(153, 26);
+            this.ConnectionsCondContextMenu.Opening += new System.ComponentModel.CancelEventHandler(this.ConnectionsCondContextMenu_Opening);
+            // 
             // conVD
             // 
             this.conVD.Appearance = System.Windows.Forms.Appearance.Button;
             this.conVD.AutoSize = true;
+            this.conVD.ContextMenuStrip = this.ConnectionsCondContextMenu;
             this.conVD.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.conVD.Location = new System.Drawing.Point(236, 20);
+            this.conVD.Location = new System.Drawing.Point(234, 31);
             this.conVD.Name = "conVD";
             this.conVD.Size = new System.Drawing.Size(26, 23);
             this.conVD.TabIndex = 11;
@@ -813,8 +861,9 @@
             // 
             this.conVM.Appearance = System.Windows.Forms.Appearance.Button;
             this.conVM.AutoSize = true;
+            this.conVM.ContextMenuStrip = this.ConnectionsCondContextMenu;
             this.conVM.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.conVM.Location = new System.Drawing.Point(109, 20);
+            this.conVM.Location = new System.Drawing.Point(105, 31);
             this.conVM.Name = "conVM";
             this.conVM.Size = new System.Drawing.Size(26, 23);
             this.conVM.TabIndex = 13;
@@ -826,8 +875,9 @@
             // 
             this.conDN.Appearance = System.Windows.Forms.Appearance.Button;
             this.conDN.AutoSize = true;
+            this.conDN.ContextMenuStrip = this.ConnectionsCondContextMenu;
             this.conDN.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.conDN.Location = new System.Drawing.Point(236, 78);
+            this.conDN.Location = new System.Drawing.Point(234, 95);
             this.conDN.Name = "conDN";
             this.conDN.Size = new System.Drawing.Size(26, 23);
             this.conDN.TabIndex = 13;
@@ -839,8 +889,9 @@
             // 
             this.conMN.Appearance = System.Windows.Forms.Appearance.Button;
             this.conMN.AutoSize = true;
+            this.conMN.ContextMenuStrip = this.ConnectionsCondContextMenu;
             this.conMN.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.conMN.Location = new System.Drawing.Point(103, 78);
+            this.conMN.Location = new System.Drawing.Point(105, 95);
             this.conMN.Name = "conMN";
             this.conMN.Size = new System.Drawing.Size(26, 23);
             this.conMN.TabIndex = 13;
@@ -852,8 +903,9 @@
             // 
             this.conMO.Appearance = System.Windows.Forms.Appearance.Button;
             this.conMO.AutoSize = true;
+            this.conMO.ContextMenuStrip = this.ConnectionsCondContextMenu;
             this.conMO.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.conMO.Location = new System.Drawing.Point(126, 49);
+            this.conMO.Location = new System.Drawing.Point(116, 60);
             this.conMO.Name = "conMO";
             this.conMO.Size = new System.Drawing.Size(26, 23);
             this.conMO.TabIndex = 13;
@@ -865,8 +917,9 @@
             // 
             this.conOD.Appearance = System.Windows.Forms.Appearance.Button;
             this.conOD.AutoSize = true;
+            this.conOD.ContextMenuStrip = this.ConnectionsCondContextMenu;
             this.conOD.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.conOD.Location = new System.Drawing.Point(223, 49);
+            this.conOD.Location = new System.Drawing.Point(225, 60);
             this.conOD.Name = "conOD";
             this.conOD.Size = new System.Drawing.Size(26, 23);
             this.conOD.TabIndex = 13;
@@ -878,8 +931,9 @@
             // 
             this.conON.Appearance = System.Windows.Forms.Appearance.Button;
             this.conON.AutoSize = true;
+            this.conON.ContextMenuStrip = this.ConnectionsCondContextMenu;
             this.conON.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.conON.Location = new System.Drawing.Point(168, 69);
+            this.conON.Location = new System.Drawing.Point(168, 79);
             this.conON.Name = "conON";
             this.conON.Size = new System.Drawing.Size(26, 23);
             this.conON.TabIndex = 13;
@@ -929,18 +983,6 @@
             // 
             this.toolTip1.Popup += new System.Windows.Forms.PopupEventHandler(this.toolTip1_Popup);
             // 
-            // rvg
-            // 
-            this.rvg.Appearance = System.Windows.Forms.Appearance.Button;
-            this.rvg.AutoSize = true;
-            this.rvg.Location = new System.Drawing.Point(228, 23);
-            this.rvg.Name = "rvg";
-            this.rvg.Size = new System.Drawing.Size(56, 23);
-            this.rvg.TabIndex = 39;
-            this.rvg.Text = "Снимок";
-            this.rvg.UseVisualStyleBackColor = true;
-            this.rvg.CheckedChanged += new System.EventHandler(this.rvg_CheckedChanged);
-            // 
             // mainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -956,7 +998,7 @@
             this.Text = "Клише 0.1prePreAlfa";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
-            this.contextMenuStrip1.ResumeLayout(false);
+            this.ConditionsFaceContextMenu.ResumeLayout(false);
             this.TabPanel.ResumeLayout(false);
             this.Caries.ResumeLayout(false);
             this.Caries.PerformLayout();
@@ -978,7 +1020,7 @@
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.CheckBox Osmotr;
-        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.ContextMenuStrip ConditionsFaceContextMenu;
         private System.Windows.Forms.ToolStripMenuItem кариесToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem povcar_pov;
         private System.Windows.Forms.ToolStripMenuItem car_sred;
@@ -1043,6 +1085,8 @@
         private System.Windows.Forms.ContextMenuStrip FaceConditionsMenu;
         private System.Windows.Forms.Button erase;
         private System.Windows.Forms.CheckBox rvg;
+        private System.Windows.Forms.CheckBox cervF;
+        private System.Windows.Forms.ContextMenuStrip ConnectionsCondContextMenu;
     }
 }
 
